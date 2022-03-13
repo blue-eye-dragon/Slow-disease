@@ -8,14 +8,14 @@
           class="layoutLogo"
         >
       </div>
-      <div class="setting">
+      <!-- <div class="setting">
         <el-dropdown @command="handleCommand">
           <i class="el-icon-s-tools"></i>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="a">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-      </div>
+      </div> -->
     </el-header>
     <el-container>
       <el-aside width='200px' class="asideMenu">

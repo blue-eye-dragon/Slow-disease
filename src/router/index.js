@@ -49,6 +49,12 @@ const router = new Router({
           "path": "/statisticalReports",
           "name": "statisticalReports",
           "component": () => import("@/view/statisticalReports/index.vue"),
+        },
+        // 卡片详情
+        {
+          "path": "/cardInformation",
+          "name": "cardInformation",
+          "component": () => import("@/view/cardInformation/index.vue"),
         }
         // 社区信息维护
         // {
