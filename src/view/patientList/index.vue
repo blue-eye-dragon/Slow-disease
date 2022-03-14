@@ -73,13 +73,13 @@
         <el-table-column
           prop="name5"
           label="录入日期"
-          width="200"
+          width="150"
         >
         </el-table-column>
         <el-table-column
           prop="name6"
           label="状态"
-          width="200"
+          width="150"
         >
         </el-table-column>
         <el-table-column

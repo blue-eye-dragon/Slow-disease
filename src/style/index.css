@@ -170,3 +170,7 @@ pre {
   padding-bottom: 5px;
   text-align: right;
 }
+
+.el-form-item__content {
+  text-align: left;
+}

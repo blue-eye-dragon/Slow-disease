@@ -1,13 +1,13 @@
 <template id="layout">
   <el-container class="layout">
-    <el-header class="headerTop">
-      <div>
+    <!-- <el-header class="headerTop"> -->
+      <!-- <div>
         <img
           src="./imgs/logo.png"
           alt=""
           class="layoutLogo"
         >
-      </div>
+      </div> -->
       <!-- <div class="setting">
         <el-dropdown @command="handleCommand">
           <i class="el-icon-s-tools"></i>
@@ -16,7 +16,7 @@
           </el-dropdown-menu>
         </el-dropdown>
       </div> -->
-    </el-header>
+    <!-- </el-header> -->
     <el-container>
       <el-aside width='200px' class="asideMenu">
         <div class="adminInfo">
@@ -62,14 +62,14 @@ export default {
   background-color: #ebebeb;
   color: #333;
   text-align: center;
-  height: calc(100vh - 60px);
+  height: 100vh;
 }
 
 .el-main {
   background-color: #e9eef3;
   color: #333;
   text-align: center;
-  height: calc(100vh - 60px);
+  height: 100vh;
 }
 .layout {
   .headerTop {
