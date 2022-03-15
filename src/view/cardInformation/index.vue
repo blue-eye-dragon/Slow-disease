@@ -202,6 +202,27 @@
                   <el-radio-group v-model="form2.contagionB" class="alignGrounp">
                     <el-radio v-for="item in contagionBList" :label="item.value" :key="item.value">{{item.label}}</el-radio>
                   </el-radio-group>
+                  <el-radio-group v-model="form2.viralHepatitis" v-if="form2.contagionB == 3">
+                    <el-radio v-for="item in viralHepatitis" :label="item.value" :key="item.value">{{item.label}}</el-radio>
+                  </el-radio-group>
+                  <el-radio-group v-model="form2.anthrax" v-if="form2.contagionB == 11">
+                    <el-radio v-for="item in anthrax" :label="item.value" :key="item.value">{{item.label}}</el-radio>
+                  </el-radio-group>
+                  <el-radio-group v-model="form2.diarrhea" v-if="form2.contagionB == 12">
+                    <el-radio v-for="item in diarrhea" :label="item.value" :key="item.value">{{item.label}}</el-radio>
+                  </el-radio-group>
+                  <el-radio-group v-model="form2.phthisis" v-if="form2.contagionB == 13">
+                    <el-radio v-for="item in phthisis" :label="item.value" :key="item.value">{{item.label}}</el-radio>
+                  </el-radio-group>
+                  <el-radio-group v-model="form2.Typhoid" v-if="form2.contagionB == 14">
+                    <el-radio v-for="item in Typhoid" :label="item.value" :key="item.value">{{item.label}}</el-radio>
+                  </el-radio-group>
+                  <el-radio-group v-model="form2.syphilis" v-if="form2.contagionB == 22">
+                    <el-radio v-for="item in syphilis" :label="item.value" :key="item.value">{{item.label}}</el-radio>
+                  </el-radio-group>
+                  <el-radio-group v-model="form2.malaria" v-if="form2.contagionB == 25">
+                    <el-radio v-for="item in malaria" :label="item.value" :key="item.value">{{item.label}}</el-radio>
+                  </el-radio-group>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -677,11 +698,11 @@
       </el-tab-pane>
     </el-tabs>
     <div class="buttonList">
-      <el-button type="primary">提交</el-button>
-      <el-button type="primary">暂存</el-button>
-      <el-button type="primary">返回</el-button>
-      <el-button type="primary">审核确认</el-button>
-      <el-button type="primary">驳回</el-button>
+      <el-button type="primary" @click="submit(1)">提交</el-button>
+      <el-button type="primary" @click="submit(2)">暂存</el-button>
+      <el-button type="primary" @click="back">返回</el-button>
+      <el-button type="primary" @click="audit">审核确认</el-button>
+      <el-button type="primary" @click="reject">驳回</el-button>
     </div>
   </div>
 </template>
@@ -893,56 +914,92 @@ export default {
           value: 4
         },
         {
-          label: '痢疾',
+          label: '人禽流感',
+          value: 5
+        },
+        {
+          label: '麻疹',
           value: 6
         },
         {
-          label: '肺结核',
+          label: '出血热',
           value: 7
         },
         {
-          label: '伤寒＋副伤寒',
+          label: '狂犬病',
           value: 8
         },
         {
-          label: '流脑',
+          label: '乙脑',
           value: 9
         },
         {
-          label: '百日咳',
+          label: '登革热',
           value: 10
         },
         {
-          label: '白喉',
+          label: '炭疽',
           value: 11
         },
         {
-          label: '新生儿破伤风',
+          label: '痢疾',
+          value: 12
+        },
+        {
+          label: '肺结核',
           value: 13
         },
         {
-          label: '猩红热',
+          label: '伤寒＋副伤寒',
           value: 14
         },
         {
-          label: '布病',
+          label: '流脑',
           value: 15
         },
         {
-          label: '淋病-梅毒',
+          label: '百日咳',
           value: 16
         },
         {
-          label: '钩体病',
+          label: '白喉',
           value: 17
         },
         {
-          label: '血吸虫病-疟疾',
+          label: '新生儿破伤风',
           value: 18
         },
         {
-          label: '甲型H1N1流感',
+          label: '猩红热',
           value: 19
+        },
+        {
+          label: '布病',
+          value: 20
+        },
+        {
+          label: '淋病',
+          value: 21
+        },
+        {
+          label: '梅毒',
+          value: 22
+        },
+        {
+          label: '钩体病',
+          value: 23
+        },
+        {
+          label: '血吸虫病',
+          value: 24
+        },
+        {
+          label: '疟疾',
+          value: 25
+        },
+        {
+          label: '甲型H1N1流感',
+          value: 26
         }
       ],
       contagionCList: [
@@ -1041,6 +1098,120 @@ export default {
           value: 12
         }
       ],
+      viralHepatitis: [
+        {
+          label: '甲肝',
+          value: 1
+        },
+        {
+          label: '乙肝',
+          value: 2
+        },
+        {
+          label: '丙肝',
+          value: 3
+        },
+        {
+          label: '丁肝',
+          value: 4
+        },
+        {
+          label: '戊肝',
+          value: 5
+        },
+        {
+          label: '肝炎（未分型）',
+          value: 6
+        },
+      ],
+      anthrax: [
+        {
+          label: '炭疽',
+          value: 1
+        },
+        {
+          label: '皮肤炭疽',
+          value: 2
+        },
+        {
+          label: '炭疽（未分型）',
+          value: 3
+        }
+      ],
+      diarrhea: [
+        {
+          label: '细菌性痢疾',
+          value: 1
+        },
+        {
+          label: '阿米巴性痢疾',
+          value: 2
+        }
+      ],
+      phthisis: [
+        {
+          label: '涂（+）',
+          value: 1
+        },
+        {
+          label: '菌（-）',
+          value: 2
+        },
+        {
+          label: '未痰检',
+          value: 3
+        },
+        {
+          label: '仅培养',
+          value: 4
+        }
+      ],
+      Typhoid: [
+        {
+          label: '伤寒',
+          value: 1
+        },
+        {
+          label: '副伤寒',
+          value: 2
+        }
+      ],
+      syphilis: [
+        {
+          label: 'Ⅰ期梅毒',
+          value: 1
+        },
+        {
+          label: 'Ⅱ期梅毒',
+          value: 2
+        },
+        {
+          label: 'Ⅲ期梅毒',
+          value: 3
+        },
+        {
+          label: '胎传梅毒',
+          value: 4
+        },
+        {
+          label: '隐形梅毒',
+          value: 5
+        }
+      ],
+      malaria: [
+        {
+          label: '间日疟',
+          value: 1
+        },
+        {
+          label: '恶性疟',
+          value: 2
+        },
+        {
+          label: '疟疾（未分型）',
+          value: 3
+        }
+      ],
       form: {},
       form2: {},
       form3: {},
@@ -1048,6 +1219,18 @@ export default {
     }
   },
     methods: {
+      submit () {
+        this.$router.push('/patientList')
+      },
+      back () {
+        this.$router.push('/patientList')
+      },
+      audit () {
+        this.$router.push('/patientList')
+      },
+      reject () {
+        this.$router.push('/patientList')
+      },
       handleClick(tab, event) {
         console.log(tab, event);
       },
@@ -1071,11 +1254,11 @@ export default {
 .formBorder {
   border: 1px solid #2b2b2b;
   .el-row {
-    padding-top: 20px;
+    padding-top: 10px;
     border-bottom: 1px solid;
     .title {
       text-align: left;
-      padding: 10px 0;
+      padding: 5px 0;
     }
     .header1 {
       font-size: 14px;

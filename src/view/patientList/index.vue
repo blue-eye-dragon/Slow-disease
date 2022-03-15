@@ -1,46 +1,68 @@
 <template>
   <div>
     <el-row class="searchForm">
-      <el-col :span="20">
+      <el-col :span="18">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
           <el-form-item label="患者姓名">
-            <el-input v-model="formInline.user" placeholder="患者姓名"></el-input>
+            <el-input v-model="formInline.user" placeholder="患者姓名" style="width:220px"></el-input>
           </el-form-item>
           <el-form-item label="证件号">
             <el-input v-model="formInline.id" placeholder="证件号"></el-input>
           </el-form-item>
-          <el-form-item label="当前状态">
-            <el-select v-model="formInline.state" placeholder="请选择">
+          <el-form-item label="科室">
+            <el-select v-model="formInline.department" placeholder="请选择">
               <el-option
-                v-for="item in options"
+                v-for="item in departmentList"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="申报时间">
-            <el-date-picker
-              v-model="formInline.time"
-              type="daterange"
-              align="right"
-              unlink-panels
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
-              :picker-options="pickerOptions">
-            </el-date-picker>
-          </el-form-item>
+          <transition
+            :duration="{ enter: 800, leave: 100 }"
+            mode="out-in"
+            name="el-fade-in-linear"
+          >
+            <div
+              class="selectMode"
+              v-if="!isUpDown"
+            >
+              <el-form-item label="当前状态">
+                <el-select v-model="formInline.state" placeholder="请选择">
+                  <el-option
+                    v-for="item in stateList"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="申报时间">
+                <el-date-picker
+                  v-model="formInline.time"
+                  type="daterange"
+                  align="right"
+                  unlink-panels
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期"
+                  :picker-options="pickerOptions">
+                </el-date-picker>
+              </el-form-item>
+            </div>
+          </transition>
         </el-form>
       </el-col>
-      <el-col :span="4">
-          <el-button type="primary" @click="onSubmit">查询</el-button>
-          <el-button type="primary" @click="onSubmit">重置</el-button>
+      <el-col :span="6">
+          <el-button size="medium" type="primary" @click="onSubmit">查询</el-button>
+          <el-button size="medium" type="primary" @click="onSubmit">重置</el-button>
+          <el-button size="medium" type="primary" :icon="isUpDown?'el-icon-arrow-up':'el-icon-arrow-down'" @click="onUpDown" class="highSearch">高级查询</el-button>
       </el-col>
     </el-row>
     <div>
       <div style="textAlign:left;marginBottom:10px">
-        <el-button type="primary">新增</el-button>
+        <el-button type="primary" @click="add">新增</el-button>
       </div>
       <el-table :data="formData"
                 stripe
@@ -49,13 +71,13 @@
         <el-table-column
           prop="name1"
           label="登记号"
-          width="200"
+          width="150"
         >
         </el-table-column>
         <el-table-column
           prop="name2"
           label="姓名"
-          width="200"
+          width="150"
         >
         </el-table-column>
         <el-table-column
@@ -73,17 +95,22 @@
         <el-table-column
           prop="name5"
           label="录入日期"
-          width="150"
+          width="120"
         >
         </el-table-column>
         <el-table-column
           prop="name6"
-          label="状态"
-          width="150"
+          label="科室"
+          width="120"
         >
         </el-table-column>
         <el-table-column
-          prop="name"
+          prop="name7"
+          label="状态"
+          width="120"
+        >
+        </el-table-column>
+        <el-table-column
           label="操作"
         >
         <template slot-scope="scope">
@@ -125,11 +152,12 @@ export default {
   data() {
     return {
       total: 0,
+      isUpDown: true,
       pager: {
         page: 1,
         limit: 10
       },
-      options: [
+      stateList: [
         {
           value: '待报',
           label: '待报'
@@ -151,6 +179,24 @@ export default {
           label: '全部'
         }
       ],
+      departmentList: [
+        {
+          value: '1',
+          label: '神经内科'
+        },
+        {
+          value: '2',
+          label: '骨科'
+        },
+        {
+          value: '3',
+          label: '内分泌科'
+        },
+        {
+          value: '4',
+          label: '肿瘤科'
+        },
+      ],
       formData: [
         {
           name1: '1212121',
@@ -158,7 +204,8 @@ export default {
           name3: '男',
           name4: '123111199412080075',
           name5: '202-01-03',
-          name6: '待录入',
+          name6: '神经内科',
+          name7: '待录入',
         },
         {
           name1: '1212121',
@@ -166,7 +213,8 @@ export default {
           name3: '男',
           name4: '123111199412080075',
           name5: '202-01-03',
-          name6: '待录入',
+          name6: '神经内科',
+          name7: '待录入',
         },
         {
           name1: '1212121',
@@ -174,7 +222,8 @@ export default {
           name3: '男',
           name4: '123111199412080075',
           name5: '202-01-03',
-          name6: '待录入',
+          name6: '神经内科',
+          name7: '待录入',
         },
         {
           name1: '1212121',
@@ -182,7 +231,8 @@ export default {
           name3: '男',
           name4: '123111199412080075',
           name5: '202-01-03',
-          name6: '待录入',
+          name6: '神经内科',
+          name7: '待录入',
         }
       ],
       formInline: {},
@@ -216,9 +266,15 @@ export default {
     } 
   },
   methods: {
+    add () {
+      this.$router.push('/cardInformation')
+    },
     handleEdit () {
       this.$router.push('/cardInformation')
-    }
+    },
+    onUpDown () {
+      this.isUpDown = !this.isUpDown
+    },
   }
 }
 </script>

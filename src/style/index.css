@@ -121,6 +121,9 @@ pre {
   color: #ff0000;
 }
 
+.el-main {
+  padding: 10px;
+}
 
 .searchForm {
   margin-top: 20px;
@@ -170,7 +173,34 @@ pre {
   padding-bottom: 5px;
   text-align: right;
 }
+.el-form-item {
+  margin-bottom: 15px;
+}
+
+.el-form-item__label {
+  line-height: 30px;
+}
 
 .el-form-item__content {
   text-align: left;
+  line-height: 30px;
+}
+.el-input__inner {
+  height: 30px;
+}
+.el-input__icon {
+  line-height: 30px;
+}
+.el-date-editor .el-range__icon {
+  line-height: 22px;
+}
+.el-date-editor .el-range-separator {
+  line-height: 22px;
+}
+.el-cascader {
+  line-height: 30px;
+}
+
+.el-table .el-table__cell {
+  padding: 6px 0;
 }

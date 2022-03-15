@@ -20,7 +20,7 @@ export default {
       // asideList: store.getters['asideList']
       // menuList: store.getters['asideList'],
       asideList: [
-        { id: '1', title: '检测预警页面', path: '/detecteWarning' },
+        // { id: '1', title: '检测预警页面', path: '/detecteWarning' },
         { id: '2', title: '工作台', path: '/workTable' },
         { id: '4', title: '疾病患者管理', path: '/patientList' },
         { id: '3', title: '统计报表', path: '/statisticalReports' },
