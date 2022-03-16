@@ -7,7 +7,7 @@
           <el-table :data="tableData"
                     stripe
                     border
-                    max-height="300"
+                    max-height="250"
                     style="width: 100%">
             <el-table-column prop="department"
                              fixed
@@ -68,35 +68,41 @@ export default {
     return {
       cardList: [
         {
-          title: '传染病',
+          title: '传染病监测',
+          toAudit: '164',
+          audited: '135',
+          willExpire: '4423'
+        },
+        {
+          title: '慢病监测',
+          toAudit: '354',
+          audited: '45',
+          willExpire: '1423'
+        },
+        {
+          title: '精神障碍监测',
           toAudit: '144',
           audited: '155',
           willExpire: '1423'
         },
         {
-          title: '传染病',
+          title: '死因监测',
           toAudit: '144',
           audited: '155',
           willExpire: '1423'
         },
         {
-          title: '传染病',
+          title: '食源性疾病监测',
           toAudit: '144',
           audited: '155',
           willExpire: '1423'
         },
         {
-          title: '传染病',
+          title: '其它监测',
           toAudit: '144',
           audited: '155',
           willExpire: '1423'
         },
-        {
-          title: '传染病',
-          toAudit: '144',
-          audited: '155',
-          willExpire: '1423'
-        }
       ],
       tableData: [
         {
@@ -363,7 +369,6 @@ export default {
         },
         series: [
           {
-            name: 'Access From',
             type: 'pie',
             radius: '50%',
             data: [
@@ -422,7 +427,7 @@ export default {
 
 <style lang="less">
   .content1 {
-    height: calc(100vh - 170px);
+    height:100vh;
     .el-col {
       height: 100%;
       padding: 10px 10px 0;
@@ -430,7 +435,7 @@ export default {
   }
   #dataEcharts {
     width: 100%;
-    height: calc(100% - 400px);
+    height: calc(100% - 350px);
   }
   #ranking {
     width: 100%;

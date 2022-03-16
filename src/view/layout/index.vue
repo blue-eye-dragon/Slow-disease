@@ -23,6 +23,11 @@
           <i class="el-icon-user-solid"></i>
 					<p class="adminName">{{userName}}</p>
 				</div>
+        <el-button
+          plain
+          @click="open2">
+          右下角
+        </el-button>
         <Aside class="asideMenuList"></Aside>
       </el-aside>
       <el-main class="mainBox">
@@ -40,12 +45,36 @@ export default {
   },
   data () {
     return {
-      userName: ''
+      userName: '',
+      upUserName: 'xxx'
     }
   },
   mounted () {
   },
   methods: {
+      open2() {
+        const _this = this;
+        this.$notify({
+          title: '审核提醒',
+          dangerouslyUseHTMLString: true,
+          message: `
+            <div>
+              <div>
+                <span>${this.upUserName}<span>提交了新的待审批工单
+              </div>
+            <div>
+          `,
+          position: 'bottom-right',
+          offset: 10,
+          duration: 0,
+          onClick () {
+            _this.pushSub()
+          }
+        });
+      },
+      pushSub () {
+        this.$router.push('/patientList')            
+      }
   }
 }
 </script>

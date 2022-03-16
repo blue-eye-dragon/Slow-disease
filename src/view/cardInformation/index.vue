@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div style="height:100%;position:relative;overflow: hidden;">
+    <el-button class="patientBtn" type="primary" @click="openDiagon">患者资料</el-button>
     <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
       <el-tab-pane label="传染病页一" name="first">
         <h3>中华人民共和国传染病报告卡</h3>
@@ -17,7 +18,7 @@
             </el-col>
         </el-row>
         <div style="padding:20px"> 
-          <el-form ref="form" :model="form" label-width="85px" style="border:1px solid;paddingTop: 20px">
+          <el-form ref="form" :model="form" label-width="85px" class="formOne">
               <el-row>
                   <el-col :span="6">
                     <el-form-item label="患者姓名：">
@@ -186,7 +187,7 @@
       </el-tab-pane>
       <el-tab-pane label="传染病页二" name="second">
         <div style="padding:20px">
-          <el-form ref="form2" :model="form2" label-width="100px" class="formBorder">
+          <el-form ref="form2" :model="form2" label-width="100px" class="formBorder formTwo">
             <el-row>
               <el-col :span="24">
                 <el-form-item label="甲类传染病：">
@@ -272,7 +273,7 @@
                   <el-input v-model="form.otherContagion" placeholder="请输入内容"></el-input>
                 </el-form-item>
                 <el-form-item label="填卡日期：" label-width="85px">
-                  <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+                  <el-date-picker v-model="form.data" type="date" placeholder="选择日期"></el-date-picker>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -302,7 +303,7 @@
             </el-col>
         </el-row>
         <div style="padding:20px"> 
-          <el-form ref="form" :model="form3" label-width="85px" style="border:1px solid;paddingTop: 20px">
+          <el-form ref="form" :model="form3" label-width="85px" class="formOne">
               <el-row>
                   <el-col :span="6">
                     <el-form-item label="患者姓名：">
@@ -499,7 +500,7 @@
       </el-tab-pane>
       <el-tab-pane label="性病页二" name="fourth">
         <div style="padding:20px">
-          <el-form ref="form4" :model="form4" label-width="85px" class="formBorder">
+          <el-form ref="form4" :model="form4" label-width="85px" class="formBorder formTwo">
               <el-row>
                   <el-col :span="24">
                     <el-form-item label="疾病名称：">
@@ -698,12 +699,49 @@
       </el-tab-pane>
     </el-tabs>
     <div class="buttonList">
-      <el-button type="primary" @click="submit(1)">提交</el-button>
+      <el-button v-if="userType == '1'" type="primary" @click="submit(1)">提交</el-button>
       <el-button type="primary" @click="submit(2)">暂存</el-button>
-      <el-button type="primary" @click="back">返回</el-button>
-      <el-button type="primary" @click="audit">审核确认</el-button>
-      <el-button type="primary" @click="reject">驳回</el-button>
+      <el-button v-if="userType == '1'" type="primary" @click="back">返回</el-button>
+      <el-button v-if="userType == '2'" type="primary" @click="audit">审核确认</el-button>
+      <el-button v-if="userType == '2'" type="primary" @click="reject">驳回</el-button>
     </div>
+    <div class="patientData">
+
+    </div>
+    <el-drawer
+      :with-header="false"
+      :modal="false"
+      :visible.sync="table"
+      style="position:absolute;"
+      z-index="99"
+      size="40%"
+      direction="btt">
+        <el-tabs v-model="patientActive" type="card" @tab-click="changePatient">
+          <el-tab-pane v-for="item in patientTabList" :key="item.value" :label="item.label" :name="item.value">
+
+          </el-tab-pane>
+        </el-tabs>
+    </el-drawer>
+    <el-dialog
+      title="请选择疾病类型"
+      :visible.sync="dialogVisible"
+      :show-close="false"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      width="30%"
+      center>
+      <el-select v-model="selectDiseasesType" placeholder="请选择">
+        <el-option
+          v-for="item in diseasesTypeList"
+          :label="item.label"
+          :value="item.value"
+          :key="item.value">
+        </el-option>
+      </el-select>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="closeDialog">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -712,10 +750,45 @@ export default {
   name: 'cardInformation',
   data() {
     return {
+      table: false,
+      dialogVisible: true,
       activeName: 'first',
+      patientActive: 1,
       cardId: '',
       cardType: '',
       options1: [],
+      userType: '1',
+      selectDiseasesType: '',
+      patientTabList: [
+        {
+          label: '基本信息',
+          value: 1
+        },
+        {
+          label: '诊断信息',
+          value: 2
+        },
+        {
+          label: '遗嘱信息',
+          value: 3
+        },
+        {
+          label: '影像报告',
+          value: 4
+        },
+        {
+          label: '常规检验',
+          value: 5
+        },
+        {
+          label: '微生物检验',
+          value: 6
+        },
+        {
+          label: '历史报卡',
+          value: 7
+        }
+      ],
       peopleTypeList: [
         {
           label: '幼托儿童',
@@ -1212,6 +1285,45 @@ export default {
           value: 3
         }
       ],
+      gridData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }],
+      diseasesTypeList: [
+        {
+          label: '传染病',
+          value: 1
+        },
+        {
+          label: '慢病',
+          value: 2
+        },
+        {
+          label: '精神障碍',
+          value: 3
+        },
+        {
+          label: '食源性疾病',
+          value: 4
+        },
+        {
+          label: '其他',
+          value: 5
+        }
+      ],
       form: {},
       form2: {},
       form3: {},
@@ -1234,7 +1346,18 @@ export default {
       handleClick(tab, event) {
         console.log(tab, event);
       },
-      handleChange(){}
+      handleChange(){},
+      openDiagon () {
+        this.table = !this.table
+      },
+      changePatient() {},
+      closeDialog () {
+        if (this.selectDiseasesType !== '') {
+          this.dialogVisible = false
+          return false
+        }
+        this.$message.error('请选择疾病类型')
+      },
     }
 }
 </script>
@@ -1243,6 +1366,13 @@ export default {
 .el-col {
   padding: 0 20px;
 }
+.el-drawer.btt {
+  padding-top: 10px;
+}
+.el-dialog__header {
+  text-align: center;
+  border-bottom: 0;
+} 
 .alignGrounp {
   display: flex;
   flex-wrap: wrap;
@@ -1264,5 +1394,20 @@ export default {
       font-size: 14px;
     }
   }
+}
+.formOne {
+  border:1px solid;
+  padding-top: 20px;
+  height: calc(100vh - 270px);
+  overflow: auto;
+}
+.formTwo {
+  height: calc(100vh - 200px);
+  overflow: auto;
+}
+.patientBtn {
+  position: absolute;
+  right: 20px;
+  z-index: 999;
 }
 </style>

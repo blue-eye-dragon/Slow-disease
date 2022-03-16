@@ -2,17 +2,17 @@
   <div>
     <el-row class="searchForm">
       <el-col :span="18">
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline" label-width="85px">
           <el-form-item label="患者姓名">
             <el-input v-model="formInline.user" placeholder="患者姓名" style="width:220px"></el-input>
           </el-form-item>
           <el-form-item label="证件号">
             <el-input v-model="formInline.id" placeholder="证件号"></el-input>
           </el-form-item>
-          <el-form-item label="科室">
-            <el-select v-model="formInline.department" placeholder="请选择">
+          <el-form-item label="疑似疾病分类" label-width="100px">
+            <el-select v-model="formInline.diseasesType" placeholder="请选择" style="width:200px">
               <el-option
-                v-for="item in departmentList"
+                v-for="item in diseasesTypeList"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
@@ -28,8 +28,18 @@
               class="selectMode"
               v-if="!isUpDown"
             >
+              <el-form-item label="科室">
+                <el-select v-model="formInline.department" placeholder="请选择">
+                  <el-option
+                    v-for="item in departmentList"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
               <el-form-item label="当前状态">
-                <el-select v-model="formInline.state" placeholder="请选择">
+                <el-select v-model="formInline.state" placeholder="请选择" style="width: 205px;">
                   <el-option
                     v-for="item in stateList"
                     :key="item.value"
@@ -69,33 +79,39 @@
                 border
                 style="width: 100%">
         <el-table-column
-          prop="name1"
+          prop="name0"
           label="登记号"
-          width="150"
+          width="100"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="name1"
+          label="疑似疾病分类"
+          width="120"
         >
         </el-table-column>
         <el-table-column
           prop="name2"
           label="姓名"
-          width="150"
+          width="120"
         >
         </el-table-column>
         <el-table-column
           prop="name3"
           label="性别"
-          width="80"
+          width="60"
         >
         </el-table-column>
         <el-table-column
           prop="name4"
           label="证件号"
-          width="200"
+          width="180"
         >
         </el-table-column>
         <el-table-column
           prop="name5"
           label="录入日期"
-          width="120"
+          width="100"
         >
         </el-table-column>
         <el-table-column
@@ -107,7 +123,7 @@
         <el-table-column
           prop="name7"
           label="状态"
-          width="120"
+          width="100"
         >
         </el-table-column>
         <el-table-column
@@ -197,42 +213,68 @@ export default {
           label: '肿瘤科'
         },
       ],
+      diseasesTypeList: [
+        {
+          label: '传染病',
+          value: 1
+        },
+        {
+          label: '慢病',
+          value: 2
+        },
+        {
+          label: '精神障碍',
+          value: 3
+        },
+        {
+          label: '食源性疾病',
+          value: 4
+        },
+        {
+          label: '其他',
+          value: 5
+        }
+      ],
       formData: [
         {
-          name1: '1212121',
+          name0: '1212121',
+          name1: '传染病',
           name2: '里斯',
           name3: '男',
           name4: '123111199412080075',
           name5: '202-01-03',
           name6: '神经内科',
-          name7: '待录入',
+          name7: '待处理',
         },
         {
-          name1: '1212121',
+          name0: '1212121',
+          name1: '慢病',
           name2: '里斯',
           name3: '男',
           name4: '123111199412080075',
           name5: '202-01-03',
           name6: '神经内科',
-          name7: '待录入',
+          name7: '已审核',
         },
         {
-          name1: '1212121',
+          name0: '1212121',
+          name1: '精神障碍',
           name2: '里斯',
           name3: '男',
           name4: '123111199412080075',
           name5: '202-01-03',
           name6: '神经内科',
-          name7: '待录入',
+          name7: '排除',
         },
         {
-          name1: '1212121',
+          name0: '1212121',
+          name1: '食源性疾病',
           name2: '里斯',
           name3: '男',
           name4: '123111199412080075',
           name5: '202-01-03',
           name6: '神经内科',
-          name7: '待录入',
+          name7: '待查',
         }
       ],
       formInline: {},
@@ -275,11 +317,16 @@ export default {
     onUpDown () {
       this.isUpDown = !this.isUpDown
     },
+    onSubmit () {},
+    search () {}
   }
 }
 </script>
 
 <style lang="less">
+.el-col {
+  padding: 0 0 0 20px
+}
 .searchForm {
   margin-bottom: 20px;
   border-bottom: 1px solid;
