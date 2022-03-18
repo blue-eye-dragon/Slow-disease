@@ -134,7 +134,7 @@
             size="mini"
             type="primary"
             @click="openCases(scope.row)"
-          >病例</el-button>
+          >病历</el-button>
           <el-button
             size="mini"
             class="auditBtn"
@@ -362,10 +362,20 @@ export default {
   },
   methods: {
     add () {
-      this.$router.push('/cardInformation')
+      this.$router.push({
+        name: 'cardInformation',
+        params: {
+          flag: 'add'
+        }
+      })
     },
     handleAudit () {
-      this.$router.push('/cardInformation')
+      this.$router.push({
+        name: 'cardInformation',
+        params: {
+          flag: 'audit'
+        }
+      })
     },
     handleCheck () {
       this.$router.push('/cardInformation')

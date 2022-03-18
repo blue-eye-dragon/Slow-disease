@@ -701,7 +701,7 @@
     <div class="buttonList">
       <el-button v-if="userType == '1'" type="primary" @click="submit(1)">提交</el-button>
       <el-button type="primary" @click="submit(2)">暂存</el-button>
-      <el-button v-if="userType == '1'" type="primary" @click="back">返回</el-button>
+      <el-button type="primary" @click="back">返回</el-button>
       <el-button v-if="userType == '2'" type="primary" @click="audit">审核确认</el-button>
       <el-button v-if="userType == '2'" type="primary" @click="reject">驳回</el-button>
     </div>
@@ -751,7 +751,7 @@ export default {
   data() {
     return {
       table: false,
-      dialogVisible: true,
+      dialogVisible: false,
       activeName: 'first',
       patientActive: 1,
       cardId: '',
@@ -1330,35 +1330,44 @@ export default {
       form4: {}
     }
   },
-    methods: {
-      submit () {
-        this.$router.push('/patientList')
-      },
-      back () {
-        this.$router.push('/patientList')
-      },
-      audit () {
-        this.$router.push('/patientList')
-      },
-      reject () {
-        this.$router.push('/patientList')
-      },
-      handleClick(tab, event) {
-        console.log(tab, event);
-      },
-      handleChange(){},
-      openDiagon () {
-        this.table = !this.table
-      },
-      changePatient() {},
-      closeDialog () {
-        if (this.selectDiseasesType !== '') {
-          this.dialogVisible = false
-          return false
-        }
-        this.$message.error('请优先选择疾病类型')
-      },
+  mounted () {
+    const params = this.$route.params
+    if (params.flag && params.flag == 'add') {
+      this.dialogVisible = true
     }
+    if (params.flag && params.flag == 'audit') {
+      this.userType = '2'
+    }
+  },
+  methods: {
+    submit () {
+      this.$router.push('/patientList')
+    },
+    back () {
+      this.$router.push('/patientList')
+    },
+    audit () {
+      this.$router.push('/patientList')
+    },
+    reject () {
+      this.$router.push('/patientList')
+    },
+    handleClick(tab, event) {
+      console.log(tab, event);
+    },
+    handleChange(){},
+    openDiagon () {
+      this.table = !this.table
+    },
+    changePatient() {},
+    closeDialog () {
+      if (this.selectDiseasesType !== '') {
+        this.dialogVisible = false
+        return false
+      }
+      this.$message.error('请优先选择疾病类型')
+    },
+  }
 }
 </script>
 
