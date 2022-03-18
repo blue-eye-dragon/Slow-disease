@@ -24,7 +24,7 @@
 					<p class="adminName">{{userName}}</p>
 				</div>
         <el-button
-          plain
+          style="display:none"
           @click="open2">
           右下角
         </el-button>
@@ -68,11 +68,13 @@ export default {
           offset: 10,
           duration: 0,
           onClick () {
+            console.log(333123);
             _this.pushSub()
           }
         });
       },
       pushSub () {
+        console.log(123);
         this.$router.push('/patientList')            
       }
   }

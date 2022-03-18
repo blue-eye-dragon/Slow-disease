@@ -1,11 +1,15 @@
 <template>
   <div class="wrap">
-    <el-menu :default-active="activeIndex"
-             class="el-menu-vertical-demo">
-      <el-menu-item :index="item.id"
-                    v-for="item in asideList"
-                    :key="item.id"
-                    @click="selectAsideList(item)">
+    <el-menu
+      :default-active="activeIndex"
+      class="el-menu-vertical-demo"
+    >
+      <el-menu-item
+        :index="item.id"
+        v-for="item in asideList"
+        :key="item.id"
+        @click="selectAsideList(item)"
+      >
         <span slot="title">{{item.title}}</span>
       </el-menu-item>
     </el-menu>
@@ -39,15 +43,15 @@ export default {
     handleClose (key, keyPath) {
       console.log(key, keyPath);
     },
-    async getAsideList(){
+    async getAsideList () {
       const res = await this.$post('/index/getMenu')
       this.asideList = res.data.data.menu
       console.log(this.asideList);
       console.log(res);
     },
     selectAsideList (item) {
-      
-        this.$router.push(item.path)
+
+      this.$router.push(item.path)
       // store.commit('setmenuList', item.children)
       // if (item.route) {
       //   this.$router.push(item.route)
@@ -60,16 +64,18 @@ export default {
 }
 </script>
 <style lang="less">
-.el-menu-item.is-active {
-  background-color: #669acc;
-  color: #ffffff;
-}
-.el-menu-item:hover {
-  background-color: #669acc;
-  color: #ffffff;
-}
-.el-menu-vertical-demo {
-  background-color: #ebebeb;
-  text-align: left;
+.wrap {
+  .el-menu-item.is-active {
+    background-color: #409eff;
+    color: #ffffff;
+  }
+  .el-menu-item:hover {
+    background-color: #409eff;
+    color: #ffffff;
+  }
+  .el-menu-vertical-demo {
+    background-color: #ebebeb;
+    text-align: left;
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="workTable">
     <cardType :cardList="cardList"></cardType>
     <el-row class="content1">
         <el-col :span="16">
@@ -426,6 +426,7 @@ export default {
 </script>
 
 <style lang="less">
+.workTable {
   .content1 {
     height:100vh;
     .el-col {
@@ -450,4 +451,6 @@ export default {
     padding: 10px;
     font-size: 18px;
   }
+}
+
 </style>

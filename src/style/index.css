@@ -157,12 +157,12 @@ pre {
 }
 
 .el-tabs--card>.el-tabs__header .el-tabs__item.is-active {
-  background-color: #669acc;
+  background-color: #409eff;
   color: #ffffff;
 }
 
 .el-tabs__item:hover {
-  background-color: #669acc;
+  background-color: #409eff;
   color: #ffffff;
 }
 
@@ -174,7 +174,7 @@ pre {
   text-align: right;
 }
 .el-form-item {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .el-form-item__label {

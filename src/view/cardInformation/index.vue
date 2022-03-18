@@ -1,5 +1,5 @@
 <template>
-  <div style="height:100%;position:relative;overflow: hidden;">
+  <div class="cardInformation">
     <el-button class="patientBtn" type="primary" @click="openDiagon">患者资料</el-button>
     <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
       <el-tab-pane label="传染病页一" name="first">
@@ -714,7 +714,7 @@
       :visible.sync="table"
       style="position:absolute;"
       z-index="99"
-      size="40%"
+      size="50%"
       direction="btt">
         <el-tabs v-model="patientActive" type="card" @tab-click="changePatient">
           <el-tab-pane v-for="item in patientTabList" :key="item.value" :label="item.label" :name="item.value">
@@ -1356,58 +1356,64 @@ export default {
           this.dialogVisible = false
           return false
         }
-        this.$message.error('请选择疾病类型')
+        this.$message.error('请优先选择疾病类型')
       },
     }
 }
 </script>
 
 <style lang="less">
-.el-col {
-  padding: 0 20px;
-}
-.el-drawer.btt {
-  padding-top: 10px;
-}
-.el-dialog__header {
-  text-align: center;
-  border-bottom: 0;
-} 
-.alignGrounp {
-  display: flex;
-  flex-wrap: wrap;
-  height: 80px;
-  flex-direction: row;
-  align-content: stretch;
-  align-items: center;
-}
-.formBorder {
-  border: 1px solid #2b2b2b;
-  .el-row {
+.cardInformation {
+  height:100%;
+  position:relative;
+  overflow: hidden;
+  .el-col {
+    padding: 0 20px;
+  }
+  .el-drawer.btt {
     padding-top: 10px;
-    border-bottom: 1px solid;
-    .title {
-      text-align: left;
-      padding: 5px 0;
-    }
-    .header1 {
-      font-size: 14px;
+  }
+  .el-dialog__header {
+    text-align: center;
+    border-bottom: 0;
+  } 
+  .alignGrounp {
+    display: flex;
+    flex-wrap: wrap;
+    height: 80px;
+    flex-direction: row;
+    align-content: stretch;
+    align-items: center;
+  }
+  .formBorder {
+    border: 1px solid #2b2b2b;
+    .el-row {
+      padding-top: 10px;
+      border-bottom: 1px solid;
+      .title {
+        text-align: left;
+        padding: 5px 0;
+      }
+      .header1 {
+        font-size: 14px;
+      }
     }
   }
+  .formOne {
+    border:1px solid;
+    padding-top: 20px;
+    height: calc(100vh - 270px);
+    overflow: auto;
+  }
+  .formTwo {
+    height: calc(100vh - 200px);
+    overflow: auto;
+  }
+  .patientBtn {
+    position: absolute;
+    right: 20px;
+    z-index: 999;
+  }
 }
-.formOne {
-  border:1px solid;
-  padding-top: 20px;
-  height: calc(100vh - 270px);
-  overflow: auto;
-}
-.formTwo {
-  height: calc(100vh - 200px);
-  overflow: auto;
-}
-.patientBtn {
-  position: absolute;
-  right: 20px;
-  z-index: 999;
-}
+
 </style>

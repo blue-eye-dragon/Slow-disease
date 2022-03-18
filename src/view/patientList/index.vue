@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <div class="memberlist">
     <el-row class="searchForm">
       <el-col :span="18">
         <el-form :inline="true" :model="formInline" class="demo-form-inline" label-width="85px">
           <el-form-item label="患者姓名">
-            <el-input v-model="formInline.user" placeholder="患者姓名" style="width:220px"></el-input>
+            <el-input v-model="formInline.user" placeholder="患者姓名"></el-input>
           </el-form-item>
           <el-form-item label="证件号">
             <el-input v-model="formInline.id" placeholder="证件号"></el-input>
           </el-form-item>
-          <el-form-item label="疑似疾病分类" label-width="100px">
+          <el-form-item label="疑似疾病分类" label-width="120px">
             <el-select v-model="formInline.diseasesType" placeholder="请选择" style="width:200px">
               <el-option
                 v-for="item in diseasesTypeList"
@@ -132,18 +132,25 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="handleEdit(scope.row)"
+            type="primary"
+            @click="openCases(scope.row)"
+          >病例</el-button>
+          <el-button
+            size="mini"
+            class="auditBtn"
+            @click="handleAudit(scope.row)"
           >审核</el-button>
           <el-button
             size="mini"
+            class="investigatedBtn"
             style="margin-right:10px"
-            @click="handleEdit(scope.row)"
-          >编辑</el-button>
+            @click="handleCheck(scope.row)"
+          >待查</el-button>
           <el-popconfirm
-            title="是否删除"
+            title="是否排除"
             @confirm="handleDelete(scope.row)"
           >
-            <el-button size="mini" slot="reference" type="danger">删除</el-button>
+            <el-button size="mini" slot="reference" type="danger">排除</el-button>
           </el-popconfirm>
         </template>
         </el-table-column>
@@ -159,6 +166,20 @@
         :total="total">
       </el-pagination>
     </div>
+    <el-drawer
+      :with-header="false"
+      :modal="false"
+      :visible.sync="table"
+      style="position:absolute;"
+      z-index="99"
+      size="50%"
+      direction="btt">
+        <el-tabs v-model="patientActive" type="card" @tab-click="changePatient">
+          <el-tab-pane v-for="item in patientTabList" :key="item.value" :label="item.label" :name="item.value">
+
+          </el-tab-pane>
+        </el-tabs>
+    </el-drawer>
   </div>
 </template>
 
@@ -168,11 +189,43 @@ export default {
   data() {
     return {
       total: 0,
+      table: false,
       isUpDown: true,
+      patientActive: 1,
       pager: {
         page: 1,
         limit: 10
       },
+      patientTabList: [
+        {
+          label: '基本信息',
+          value: 1
+        },
+        {
+          label: '诊断信息',
+          value: 2
+        },
+        {
+          label: '遗嘱信息',
+          value: 3
+        },
+        {
+          label: '影像报告',
+          value: 4
+        },
+        {
+          label: '常规检验',
+          value: 5
+        },
+        {
+          label: '微生物检验',
+          value: 6
+        },
+        {
+          label: '历史报卡',
+          value: 7
+        }
+      ],
       stateList: [
         {
           value: '待报',
@@ -311,24 +364,64 @@ export default {
     add () {
       this.$router.push('/cardInformation')
     },
-    handleEdit () {
+    handleAudit () {
+      this.$router.push('/cardInformation')
+    },
+    handleCheck () {
+      this.$router.push('/cardInformation')
+    },
+    handleDelete () {
       this.$router.push('/cardInformation')
     },
     onUpDown () {
       this.isUpDown = !this.isUpDown
     },
     onSubmit () {},
-    search () {}
+    search () {},
+    changePatient() {},
+    openCases (e) {
+      console.log(e);
+      this.table = !this.table
+    }
   }
 }
 </script>
 
 <style lang="less">
-.el-col {
-  padding: 0 0 0 20px
+.memberlist {
+  height:100%;
+  position:relative;
+  overflow: hidden;
+  .el-col {
+    padding: 0 0 0 20px
+  }
+  .searchForm {
+    margin-bottom: 20px;
+    border-bottom: 1px solid;
+    .el-input {
+      width: 200px;
+    }
+  }
+  .el-drawer.btt {
+    padding-top: 10px;
+  }
 }
-.searchForm {
-  margin-bottom: 20px;
-  border-bottom: 1px solid;
+.auditBtn {
+  background-color: #78cd1f;
+  color: #ffffff;
+}
+.auditBtn:hover {
+  background-color: #78cd1f;
+  border-color: #78cd1f ;
+  color: #ffffff;
+}
+.investigatedBtn {
+  background-color: #f2cb0b;
+  color: #ffffff;
+}
+.investigatedBtn:hover {
+  background-color: #f2cb0b;
+  border-color: #f2cb0b ;
+  color: #ffffff;
 }
 </style>
