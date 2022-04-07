@@ -108,7 +108,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 #userLayout {
   width: 100%;
   height: 100vh;

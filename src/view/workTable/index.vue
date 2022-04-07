@@ -2,57 +2,76 @@
   <div class="workTable">
     <cardType :cardList="cardList"></cardType>
     <el-row class="content1">
-        <el-col :span="16">
-          <p class="title">数据展示</p>
-          <el-table :data="tableData"
-                    stripe
-                    border
-                    max-height="250"
-                    style="width: 100%">
-            <el-table-column prop="department"
-                             fixed
-                             label="科室">
-            </el-table-column>
-            <el-table-column prop="toReported"
-                             label="待上报"
-                             sortable
-                             width="120">
-            </el-table-column>
-            <el-table-column prop="exclude"
-                             label="排除"
-                             sortable
-                             width="120">
-            </el-table-column>
-            <el-table-column prop="pending"
-                             label="待审批"
-                             sortable
-                             width="120">
-            </el-table-column>
-            <el-table-column prop="approval"
-                             label="已审批"
-                             sortable
-                             width="120">
-            </el-table-column>
-            <el-table-column prop="Back"
-                             label="退回"
-                             sortable
-                             width="120">
-            </el-table-column>
-            <el-table-column prop="all"
-                             label="全部"
-                             sortable
-                             width="120">
-            </el-table-column>
-          </el-table>
-          <p class="title">图形展示</p>
-          <div id="dataEcharts"></div>
-        </el-col>
-        <el-col :span="8" style="borderLeft:10px solid #dad9d9">
-          <p class="title">未上报占比</p>
-          <div id="ranking"></div>
-          <p class="title">科室排名</p>
-          <div id="proportion"></div>
-        </el-col>
+      <el-col :span="16">
+        <p class="title">数据展示</p>
+        <el-table
+          :data="tableData"
+          stripe
+          border
+          max-height="250"
+          style="width: 100%"
+        >
+          <el-table-column
+            prop="department"
+            fixed
+            label="科室"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="toReported"
+            label="待上报"
+            sortable
+            width="120"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="exclude"
+            label="排除"
+            sortable
+            width="120"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="pending"
+            label="待审批"
+            sortable
+            width="120"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="approval"
+            label="已审批"
+            sortable
+            width="120"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="Back"
+            label="退回"
+            sortable
+            width="120"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="all"
+            label="全部"
+            sortable
+            width="120"
+          >
+          </el-table-column>
+        </el-table>
+        <p class="title">图形展示</p>
+        <div id="dataEcharts"></div>
+      </el-col>
+      <el-col
+        :span="8"
+        style="borderLeft:10px solid #dad9d9"
+      >
+        <p class="title">未上报占比</p>
+        <div id="ranking"></div>
+        <p class="title">科室排名</p>
+        <div id="proportion"></div>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -64,44 +83,44 @@ export default {
   components: {
     cardType
   },
-  data() {
+  data () {
     return {
       cardList: [
         {
           title: '传染病监测',
-          toAudit: '164',
-          audited: '135',
-          willExpire: '4423'
+          toAudit: '12',
+          audited: '15',
+          willExpire: '9'
         },
         {
           title: '慢病监测',
-          toAudit: '354',
+          toAudit: '21',
           audited: '45',
-          willExpire: '1423'
+          willExpire: '12'
         },
         {
           title: '精神障碍监测',
-          toAudit: '144',
-          audited: '155',
-          willExpire: '1423'
+          toAudit: '14',
+          audited: '31',
+          willExpire: '11'
         },
         {
           title: '死因监测',
-          toAudit: '144',
-          audited: '155',
-          willExpire: '1423'
+          toAudit: '16',
+          audited: '42',
+          willExpire: '21'
         },
         {
           title: '食源性疾病监测',
-          toAudit: '144',
-          audited: '155',
-          willExpire: '1423'
+          toAudit: '21',
+          audited: '24',
+          willExpire: '15'
         },
         {
           title: '其它监测',
-          toAudit: '144',
-          audited: '155',
-          willExpire: '1423'
+          toAudit: '16',
+          audited: '25',
+          willExpire: '13'
         },
       ],
       tableData: [
@@ -398,7 +417,7 @@ export default {
       var option = {
         xAxis: {
           // type: 'category',
-          data: ['内分泌科', '消化科', '血液科', '肾内科', '内分泌科', '神经外科', '肿瘤科','普外科','泌尿外科','心胸外科','肿瘤放疗科','产科','中医科'],
+          data: ['内分泌科', '消化科', '血液科', '肾内科', '内分泌科', '神经外科', '肿瘤科', '普外科', '泌尿外科', '心胸外科', '肿瘤放疗科', '产科', '中医科'],
           axisLabel: {
             interval: 0,
             rotate: '-45'
@@ -425,10 +444,10 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .workTable {
   .content1 {
-    height:100vh;
+    height: 100vh;
     .el-col {
       height: 100%;
       padding: 10px 10px 0;
@@ -452,5 +471,4 @@ export default {
     font-size: 18px;
   }
 }
-
 </style>

@@ -3,6 +3,10 @@
     <el-menu
       :default-active="activeIndex"
       class="el-menu-vertical-demo"
+      @open="handleOpen"
+      @close="handleClose"
+      :collapse="isCollapse"
+      :collapse-transition="false"
     >
       <el-menu-item
         :index="item.id"
@@ -10,6 +14,7 @@
         :key="item.id"
         @click="selectAsideList(item)"
       >
+        <i :class="`el-icon-${item.icon}`"></i>
         <span slot="title">{{item.title}}</span>
       </el-menu-item>
     </el-menu>
@@ -21,16 +26,22 @@ export default {
   name: 'Aside',
   data () {
     return {
+      isCollapse: true,
       // asideList: store.getters['asideList']
       // menuList: store.getters['asideList'],
       asideList: [
         // { id: '1', title: '检测预警页面', path: '/detecteWarning' },
-        { id: '2', title: '工作台', path: '/workTable' },
-        { id: '4', title: '疾病患者管理', path: '/patientList' },
-        { id: '3', title: '统计报表', path: '/statisticalReports' },
+        { id: '2', title: '工作台', path: '/workTable', icon: 'location' },
+        { id: '4', title: '疾病患者管理', path: '/patientList', icon: 'menu' },
+        { id: '3', title: '统计报表', path: '/statisticalReports', icon: 'document' },
       ],
       activeIndex: '1',
     }
+  },
+  created () {
+    this.bus.$on('collapse', item => {
+      this.isCollapse = item
+    })
   },
   mounted () {
     // this.getAsideList()
@@ -63,8 +74,9 @@ export default {
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .wrap {
+  width: 100%;
   .el-menu-item.is-active {
     background-color: #409eff;
     color: #ffffff;
@@ -76,6 +88,10 @@ export default {
   .el-menu-vertical-demo {
     background-color: #ebebeb;
     text-align: left;
+  }
+  .el-menu--collapse {
+    width: 79px;
+    text-align: center;
   }
 }
 </style>

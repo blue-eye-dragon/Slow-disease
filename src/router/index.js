@@ -11,13 +11,13 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/Login'
+      redirect: '/workTable'
     },
-    {
-      path: '/login',
-      name: 'Login',
-      component: () => import('@/view/login/index')
-    },
+    // {
+    //   path: '/login',
+    //   name: 'Login',
+    //   component: () => import('@/view/login/index')
+    // },
     {
       path: '/layout',
       name: 'layout',

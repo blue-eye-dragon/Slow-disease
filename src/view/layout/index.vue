@@ -18,17 +18,13 @@
       </div> -->
     <!-- </el-header> -->
     <el-container>
-      <el-aside width='200px' class="asideMenu">
+      <el-aside :width="isCollapse?'80px':'200px'" class="asideMenu">
         <div class="adminInfo">
           <i class="el-icon-user-solid"></i>
 					<p class="adminName">{{userName}}</p>
 				</div>
-        <el-button
-          style="display:none"
-          @click="open2">
-          右下角
-        </el-button>
         <Aside class="asideMenuList"></Aside>
+        <el-button type="primary" :icon="`el-icon-${isCollapse?'d-arrow-right':'d-arrow-left'}`" class="isShow" @click="changeShadow"></el-button>
       </el-aside>
       <el-main class="mainBox">
         <router-view></router-view>
@@ -45,11 +41,30 @@ export default {
   },
   data () {
     return {
+      isCollapse: false,
       userName: '',
       upUserName: 'xxx'
     }
   },
   mounted () {
+    const screenWidth = document.body.clientWidth
+    if (screenWidth < 1200) {
+      this.isCollapse = true
+    } else {
+      this.isCollapse = false
+    }
+    this.bus.$emit('collapse', this.isCollapse)
+    window.onresize = () => {
+      return (() => {
+        const screenWidth = document.body.clientWidth
+        if (screenWidth < 1200) {
+          this.isCollapse = true
+        } else {
+          this.isCollapse = false
+        }
+        this.bus.$emit('collapse', this.isCollapse)
+      })()
+    }
   },
   methods: {
       open2() {
@@ -76,11 +91,15 @@ export default {
       pushSub () {
         console.log(123);
         this.$router.push('/patientList')            
+      },
+      changeShadow () {
+        this.isCollapse = !this.isCollapse
+        this.bus.$emit('collapse', this.isCollapse)
       }
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .el-header{
   background-color: #ebebeb;
   color: #333;
@@ -125,6 +144,8 @@ export default {
     }
   }
   .asideMenu {
+    max-width: 200px;
+    position: relative;
     .adminInfo {
       padding: 20px;
       display: flex;
@@ -138,8 +159,18 @@ export default {
     }
     .asideMenuList {
       overflow-y: auto;
-      height: calc(100vh - 140px);
+      display: inline-block;
+      height: calc(100vh - 90px);
       background-color: #ebebeb;
+    }
+    .isShow {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: 50%;
+      right: 0px;
+      z-index: 999;
+      padding: 0
     }
   }
   .mainBox {
