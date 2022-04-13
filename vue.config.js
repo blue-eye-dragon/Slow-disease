@@ -1,6 +1,7 @@
 module.exports = {
   publicPath: '', // 对应 webpack 中的 output.publicPath
   outputDir: 'disease', // 对应 webpack 中的 output.path
+  lintOnSave: false, //是否开启eslint保存检测 ,它的有效值为 true || false || 'error'
   // transpileDependencies: [ /* string or regex */ ],
   // 是否为生产环境构建生成 source map？
   productionSourceMap: false,
@@ -16,7 +17,7 @@ module.exports = {
         ws: true,
         changOrigin: true, //允许跨域
         pathRewrite: {
-        '^/ks': '' //请求的时候使用这个api就可以
+          '^/ks': '' //请求的时候使用这个api就可以
         }
       },
       // '/kp': {

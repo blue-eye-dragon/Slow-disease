@@ -112,7 +112,8 @@ export default {
 #userLayout {
   width: 100%;
   height: 100vh;
-  background: url(../../assets/login_background.svg);
+  // background: linear-gradient(#9e0ffe, #f10130);
+  background: url(../../assets/login1.jpg);
   background-size: cover;
   position: relative;
   .topTitle {
@@ -124,8 +125,8 @@ export default {
     top: 30vh;
     right: 16vw;
     width: 350px;
-    background-color: #fff;
-    padding: 40px 40px 40px 40px;
+    background-color: rgba(255,255,255,0.7);
+    padding: 20px 40px 40px 40px;
     border-radius: 10px;
     box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.2);
   }

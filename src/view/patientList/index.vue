@@ -203,7 +203,7 @@
             >待查</el-button>
             <el-popconfirm
               title="是否排除"
-              @confirm="handleDelete(scope.row)"
+              @confirm="handleDelete(scope.row.id)"
             >
               <el-button
                 size="mini"
@@ -254,19 +254,15 @@
 </template>
 
 <script>
+import mixin from '@/mixins'
 export default {
   name: 'memberlist',
+  mixins: [mixin],
   data () {
     return {
-      total: 0,
       table: false,
-      isUpDown: true,
       patientActive: 1,
       userType: '1',
-      pager: {
-        page: 1,
-        limit: 10
-      },
       patientTabList: [
         {
           label: '基本信息',
@@ -361,6 +357,7 @@ export default {
       ],
       formData: [
         {
+          id: 1,
           name0: '1212121',
           name1: '传染病',
           name2: '里斯',
@@ -371,6 +368,7 @@ export default {
           name7: '待处理',
         },
         {
+          id: 2,
           name0: '1212121',
           name1: '慢病',
           name2: '里斯',
@@ -381,6 +379,7 @@ export default {
           name7: '已审核',
         },
         {
+          id: 3,
           name0: '1212121',
           name1: '精神障碍',
           name2: '里斯',
@@ -391,6 +390,7 @@ export default {
           name7: '排除',
         },
         {
+          id: 4,
           name0: '1212121',
           name1: '食源性疾病',
           name2: '里斯',
@@ -451,14 +451,6 @@ export default {
     handleCheck () {
       this.$router.push('/cardInformation')
     },
-    handleDelete () {
-      this.$router.push('/cardInformation')
-    },
-    onUpDown () {
-      this.isUpDown = !this.isUpDown
-    },
-    onSubmit () { },
-    search () { },
     changePatient () { },
     openCases (e) {
       console.log(e);

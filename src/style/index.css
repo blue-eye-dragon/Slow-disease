@@ -178,6 +178,7 @@ pre {
 }
 
 .el-form-item__label {
+  color: #000000;
   line-height: 30px;
 }
 

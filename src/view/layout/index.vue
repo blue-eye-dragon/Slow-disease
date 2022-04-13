@@ -88,8 +88,7 @@ export default {
           }
         });
       },
-      pushSub () {
-        console.log(123);
+      pushSub () {cd
         this.$router.push('/patientList')            
       },
       changeShadow () {

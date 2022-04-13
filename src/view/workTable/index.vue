@@ -78,6 +78,9 @@
 
 <script>
 import cardType from '@/components/cardType/index'
+var myChart1
+var myChart2
+var myChart3
 export default {
   name: 'workTable',
   components: {
@@ -85,6 +88,7 @@ export default {
   },
   data () {
     return {
+      isCollapse: false,
       cardList: [
         {
           title: '传染病监测',
@@ -253,15 +257,27 @@ export default {
       ]
     }
   },
+  // created () {
+  // },
   mounted () {
+    this.bus.$on('collapse', item => {
+      setTimeout(() => {
+        this.getDataEcharts()
+        this.getRanking()
+        this.getProportion()
+      })
+    })
     this.getDataEcharts()
     this.getRanking()
     this.getProportion()
   },
   methods: {
     getDataEcharts () {
+      if (myChart1 != null && myChart1 != "" && myChart1 != undefined) {
+        myChart1.dispose(); //销毁
+      }
       var chartDom = document.getElementById('dataEcharts');
-      var myChart = this.$echarts.init(chartDom);
+      myChart1 = this.$echarts.init(chartDom);
       var option = {
         // title: {
         //   text: 'Stacked Line'
@@ -373,11 +389,14 @@ export default {
           }
         ]
       };
-      option && myChart.setOption(option);
+      option && myChart1.setOption(option);
     },
     getRanking () {
+      if (myChart2 != null && myChart2 != "" && myChart2 != undefined) {
+        myChart2.dispose(); //销毁
+      }
       var chartDom = document.getElementById('ranking');
-      var myChart = this.$echarts.init(chartDom);
+      myChart2 = this.$echarts.init(chartDom);
       var option = {
         tooltip: {
           trigger: 'item'
@@ -408,12 +427,15 @@ export default {
         ]
       };
 
-      option && myChart.setOption(option);
+      option && myChart2.setOption(option);
 
     },
     getProportion () {
+      if (myChart3 != null && myChart3 != "" && myChart3 != undefined) {
+        myChart3.dispose(); //销毁
+      }
       var chartDom = document.getElementById('proportion');
-      var myChart = this.$echarts.init(chartDom);
+      myChart3 = this.$echarts.init(chartDom);
       var option = {
         xAxis: {
           // type: 'category',
@@ -438,9 +460,9 @@ export default {
           }
         ]
       };
-      option && myChart.setOption(option);
+      option && myChart3.setOption(option);
     }
-  }
+  },
 }
 </script>
 
