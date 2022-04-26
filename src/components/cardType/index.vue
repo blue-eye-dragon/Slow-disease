@@ -70,10 +70,11 @@ export default {
 <style lang="less" scoped>
 .typeCardList {
   display: flex;
+  flex-wrap: wrap;
   color: #ffffff;
   border-bottom: 10px solid #dad9d9;
   .typeCard {
-    flex: 1;
+    width: calc(16% - 14px);
     min-height: 110px;
     padding: 0 10px;
     margin: 0 10px 10px;
@@ -111,6 +112,12 @@ export default {
     }
   }
 }
+
+@media screen and (max-width:1200px) {
+  .typeCardList .typeCard {
+    width: calc(100% - 60px);
+  }
+} 
 .color0 {
   background-image: linear-gradient(to right, #ff823c, #ff9a1b);
 }

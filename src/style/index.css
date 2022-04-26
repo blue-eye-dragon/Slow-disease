@@ -36,7 +36,8 @@ option,
 blockquote,
 pre {
   margin: 0;
-  padding: 0
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .clearflex {
@@ -122,7 +123,7 @@ pre {
 }
 
 .el-main {
-  padding: 10px;
+  padding: 0px;
 }
 
 .searchForm {
@@ -173,9 +174,9 @@ pre {
   padding-bottom: 5px;
   text-align: right;
 }
-.el-form-item {
+/* .el-form-item {
   margin-bottom: 10px;
-}
+} */
 
 .el-form-item__label {
   color: #000000;
@@ -188,6 +189,17 @@ pre {
 }
 .el-input__inner {
   height: 30px;
+}
+.el-input-number {
+  width: 220px;
+  height: 30px;
+  line-height: 30px;
+}
+.el-textarea__inner {
+  height: 30px;
+}
+.el-input-number.is-controls-right .el-input-number__decrease, .el-input-number.is-controls-right .el-input-number__increase {
+  line-height: 14px;
 }
 .el-input__icon {
   line-height: 30px;
@@ -204,4 +216,85 @@ pre {
 
 .el-table .el-table__cell {
   padding: 6px 0;
+}
+
+
+/* 按钮 */
+
+.auditBtn {
+  background-color: #78cd1f;
+  color: #ffffff;
+}
+.auditBtn:hover {
+  background-color: #78cd1f;
+  border-color: #78cd1f;
+  color: #ffffff;
+}
+.investigatedBtn {
+  background-color: #f2cb0b;
+  color: #ffffff;
+}
+.investigatedBtn:hover {
+  background-color: #f2cb0b;
+  border-color: #f2cb0b;
+  color: #ffffff;
+}
+
+/** 表单样式 **/
+.formBox {
+  padding: 20px;
+  border: 1px solid;
+  height: calc(100vh - 210px);
+  overflow-y: auto;
+}
+.formBox .el-input__inner {
+  width: 220px;
+}
+.buttonList {
+  line-height: 70px;
+}
+
+
+/* 菜单 */
+.el-menu {
+  background-color: #daedfe;
+}
+.el-menu-vertical-demo {
+  background-color: #daedfe;
+  text-align: left;
+}
+.el-menu--collapse {
+  width: 79px;
+  text-align: center;
+}
+.el-submenu .el-menu-item {
+  background-color: #ebebeb;
+}
+.el-submenu .el-menu-item.is-active {
+  background-color: #409eff;
+  color: #ffffff;
+}
+.el-submenu .el-menu-item:hover {
+  background-color: #409eff;
+  color: #ffffff;
+}
+/*隐藏文字*/
+.el-menu--collapse  .el-submenu__title span{
+  display: none;
+}
+/*隐藏 > */
+.el-menu--collapse  .el-submenu__title .el-submenu__icon-arrow{
+  display: none;
+}
+
+
+/** 表格样式 **/
+.el-table__fixed,el-table__fixed-right {
+  border-bottom:1px solid black;
+}
+.el-table td, .el-table th.is-leaf,.el-table--border, .el-table--group{
+  border-color: black;
+}
+.el-table--border::after, .el-table--group::after, .el-table::before{
+  background-color: black;
 }

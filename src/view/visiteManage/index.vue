@@ -8,6 +8,12 @@
           class="demo-form-inline"
           label-width="85px"
         >
+          <el-form-item label="病案号">
+            <el-input
+              v-model="formInline.id"
+              placeholder="患者姓名"
+            ></el-input>
+          </el-form-item>
           <el-form-item label="患者姓名">
             <el-input
               v-model="formInline.user"
@@ -20,24 +26,6 @@
               placeholder="证件号"
             ></el-input>
           </el-form-item>
-          <el-form-item
-            label="疑似疾病分类"
-            label-width="120px"
-          >
-            <el-select
-              v-model="formInline.diseasesType"
-              placeholder="请选择"
-              style="width:200px"
-            >
-              <el-option
-                v-for="item in diseasesTypeList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              >
-              </el-option>
-            </el-select>
-          </el-form-item>
           <transition
             :duration="{ enter: 800, leave: 100 }"
             mode="out-in"
@@ -47,13 +35,14 @@
               class="selectMode"
               v-if="!isUpDown"
             >
-              <el-form-item label="科室">
+              <el-form-item label="病种">
                 <el-select
-                  v-model="formInline.department"
+                  v-model="formInline.diseasesType"
                   placeholder="请选择"
+                  style="width:200px"
                 >
                   <el-option
-                    v-for="item in departmentList"
+                    v-for="item in diseasesTypeList"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
@@ -61,11 +50,38 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="当前状态">
+              <el-form-item label="联系电话">
+                <el-input
+                  v-model="formInline.iphone"
+                  placeholder="联系电话"
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="随访人">
+                <el-input
+                  v-model="formInline.visitPerson"
+                  placeholder="随访人"
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="周期">
+                <el-select
+                  v-model="formInline.period"
+                  placeholder="请选择"
+                  style="width: 200px;"
+                >
+                  <el-option
+                    v-for="item in periodList"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  >
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="患者状态">
                 <el-select
                   v-model="formInline.state"
                   placeholder="请选择"
-                  style="width: 205px;"
+                  style="width: 200px;"
                 >
                   <el-option
                     v-for="item in stateList"
@@ -76,13 +92,13 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="申报时间">
+              <el-form-item label="随访时间">
                 <el-date-picker
                   v-model="formInline.time"
                   type="daterange"
                   align="right"
                   unlink-panels
-                  range-separator="至"
+                  range-separator="-"
                   start-placeholder="开始日期"
                   end-placeholder="结束日期"
                   :picker-options="pickerOptions"
@@ -130,49 +146,61 @@
       >
         <el-table-column
           prop="name0"
-          label="登记号"
-          width="100"
+          label="病案号"
+          width="80"
         >
         </el-table-column>
         <el-table-column
           prop="name1"
-          label="疑似疾病分类"
-          width="120"
-        >
-        </el-table-column>
-        <el-table-column
-          prop="name2"
           label="姓名"
           width="120"
         >
         </el-table-column>
         <el-table-column
-          prop="name3"
+          prop="name2"
           label="性别"
           width="60"
         >
         </el-table-column>
         <el-table-column
+          prop="name3"
+          label="联系电话"
+          width="120"
+        >
+        </el-table-column>
+        <el-table-column
           prop="name4"
-          label="证件号"
-          width="180"
+          label="第二联系人"
+          width="120"
         >
         </el-table-column>
         <el-table-column
           prop="name5"
-          label="录入日期"
+          label="病种"
           width="100"
         >
         </el-table-column>
         <el-table-column
           prop="name6"
-          label="科室"
-          width="120"
+          label="患者状态"
+          width="80"
         >
         </el-table-column>
         <el-table-column
           prop="name7"
-          label="状态"
+          label="本次随访时间"
+          width="200"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="name8"
+          label="随访人"
+          width="100"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="name9"
+          label="周期"
           width="100"
         >
         </el-table-column>
@@ -181,38 +209,13 @@
             <el-button
               size="mini"
               type="primary"
-              @click="openCases(scope.row)"
-            >病历</el-button>
+              @click="visiteDetail(scope.row)"
+            >患者详情</el-button>
             <el-button
               size="mini"
               class="auditBtn"
-              v-if="userType == '1'"
-              @click="handleAudit(scope.row)"
-            >审核</el-button>
-            <el-button
-              size="mini"
-              class="investigatedBtn"
-              style="margin-right:10px"
-              v-if="userType == '2'"
-              @click="handleCheck(scope.row)"
-            >填报卡</el-button>
-            <el-button
-              size="mini"
-              class="investigatedBtn"
-              style="margin-right:10px"
-              v-if="userType == '1'"
-              @click="handleCheck(scope.row)"
-            >待查</el-button>
-            <el-popconfirm
-              title="是否排除"
-              @confirm="handleDelete(scope.row.id)"
-            >
-              <el-button
-                size="mini"
-                slot="reference"
-                type="danger"
-              >排除</el-button>
-            </el-popconfirm>
+              @click="visiteRecords(scope.row)"
+            >随访记录</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -228,30 +231,6 @@
       >
       </el-pagination>
     </div>
-    <el-drawer
-      :with-header="false"
-      :modal="false"
-      :visible.sync="table"
-      style="position:absolute;"
-      z-index="99"
-      size="50%"
-      direction="btt"
-    >
-      <el-tabs
-        v-model="patientActive"
-        type="card"
-        @tab-click="changePatient"
-      >
-        <el-tab-pane
-          v-for="item in patientTabList"
-          :key="item.value"
-          :label="item.label"
-          :name="item.value"
-        >
-
-        </el-tab-pane>
-      </el-tabs>
-    </el-drawer>
   </div>
 </template>
 
@@ -297,59 +276,37 @@ export default {
       ],
       stateList: [
         {
-          value: '待报',
-          label: '待报'
+          value: '稳定',
+          label: '稳定'
         },
         {
-          value: '已报',
-          label: '已报'
+          value: '住院',
+          label: '住院'
         },
         {
-          value: '被审',
-          label: '被审'
-        },
-        {
-          value: '被退',
-          label: '被退'
+          value: '未知',
+          label: '未知'
         },
         {
           value: '全部',
           label: '全部'
         }
       ],
-      departmentList: [
-        {
-          value: '1',
-          label: '神经内科'
-        },
-        {
-          value: '2',
-          label: '骨科'
-        },
-        {
-          value: '3',
-          label: '内分泌科'
-        },
-        {
-          value: '4',
-          label: '肿瘤科'
-        },
-      ],
       diseasesTypeList: [
         {
-          label: '传染病',
+          label: '结核病',
           value: 1
         },
         {
-          label: '慢病',
+          label: '高血压',
           value: 2
         },
         {
-          label: '精神障碍',
+          label: '糖尿病',
           value: 3
         },
         {
-          label: '食源性疾病',
+          label: '精神分裂症',
           value: 4
         },
         {
@@ -357,50 +314,80 @@ export default {
           value: 5
         }
       ],
+      periodList: [
+        {
+          label: '72小时',
+          value: '1'
+        },
+        {
+          label: '一周',
+          value: '2'
+        },
+        {
+          label: '二周',
+          value: '3'
+        },
+        {
+          label: '三周',
+          value: '4'
+        },
+        {
+          label: '一个月',
+          value: '5'
+        }
+      ],
       formData: [
         {
           id: 1,
-          name0: '1212121',
-          name1: '传染病',
-          name2: '里斯',
-          name3: '男',
-          name4: '123111199412080075',
-          name5: '202-01-03',
-          name6: '神经内科',
-          name7: '待处理',
+          name0: '012345',
+          name1: '张三',
+          name2: '男',
+          name3: '13711111111',
+          name4: '13611111111',
+          name5: '结核病',
+          name6: '稳定',
+          name7: '2022/04/10至2022/05/10',
+          name8: '周粥',
+          name9: '72小时',
         },
         {
           id: 2,
-          name0: '1212121',
-          name1: '慢病',
-          name2: '里斯',
-          name3: '男',
-          name4: '123111199412080075',
-          name5: '202-01-03',
-          name6: '神经内科',
-          name7: '已审核',
+          name0: '012346',
+          name1: '李四',
+          name2: '女',
+          name3: '18911111111',
+          name4: '18822222222',
+          name5: '高血压',
+          name6: '稳定',
+          name7: '2022/04/05至2022/05/02',
+          name8: '周粥',
+          name9: '一周',
         },
         {
           id: 3,
-          name0: '1212121',
-          name1: '精神障碍',
-          name2: '里斯',
-          name3: '男',
-          name4: '123111199412080075',
-          name5: '202-01-03',
-          name6: '神经内科',
-          name7: '排除',
+          name0: '012347',
+          name1: '王五',
+          name2: '男',
+          name3: '13311111111',
+          name4: '15733333333',
+          name5: '糖尿病',
+          name6: '未知',
+          name7: '2022/04/14至2022/05/05',
+          name8: '周粥',
+          name9: '二周',
         },
         {
           id: 4,
-          name0: '1212121',
-          name1: '食源性疾病',
-          name2: '里斯',
-          name3: '男',
-          name4: '123111199412080075',
-          name5: '202-01-03',
-          name6: '神经内科',
-          name7: '待查',
+          name0: '012348',
+          name1: '赵六',
+          name2: '男',
+          name3: '13914441111',
+          name4: '14612323211',
+          name5: '精神分裂症',
+          name6: '住院',
+          name7: '2022/04/14至2022/05/28',
+          name8: '周粥',
+          name9: '一个月',
         }
       ],
       formInline: {},
@@ -436,27 +423,21 @@ export default {
   methods: {
     add () {
       this.$router.push({
-        name: 'cardInformation',
+        name: 'visiteDetail',
         params: {
           flag: 'add'
         }
       })
     },
-    handleAudit () {
+    visiteRecords () {
       this.$router.push({
-        name: 'cardInformation',
-        params: {
-          flag: 'audit'
-        }
+        name: 'visiteRecords',
       })
     },
-    handleCheck () {
-      this.$router.push('/cardInformation')
-    },
-    changePatient () { },
-    openCases (e) {
-      console.log(e);
-      this.table = !this.table
+    visiteDetail (e) {
+      this.$router.push({
+        name: 'patientsDetail'
+      })
     }
   }
 }

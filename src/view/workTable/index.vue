@@ -1,15 +1,17 @@
 <template>
-  <div class="workTable">
+  <div class="workTable memberlist">
     <cardType :cardList="cardList"></cardType>
-    <el-row class="content1">
-      <el-col :span="16">
+    <div class="content1">
+      <div class="content1Box1">
         <p class="title">数据展示</p>
         <el-table
           :data="tableData"
           stripe
           border
-          max-height="250"
+          max-height="270"
           style="width: 100%"
+          :cell-style="cellStyle"
+          :header-cell-style="{background:'#cbe4ff',color:'black',borderColor:'black'}"
         >
           <el-table-column
             prop="department"
@@ -62,27 +64,30 @@
         </el-table>
         <p class="title">图形展示</p>
         <div id="dataEcharts"></div>
-      </el-col>
-      <el-col
-        :span="8"
-        style="borderLeft:10px solid #dad9d9"
-      >
-        <p class="title">未上报占比</p>
-        <div id="ranking"></div>
-        <p class="title">科室排名</p>
-        <div id="proportion"></div>
-      </el-col>
-    </el-row>
+      </div>
+      <div class="content1Box2">
+        <div style="height:50%">
+          <p class="title">未上报占比</p>
+          <div id="ranking"></div>
+        </div>
+        <div style="height:50%">
+          <p class="title">科室排名</p>
+          <div id="proportion"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import mixin from '@/mixins'
 import cardType from '@/components/cardType/index'
 var myChart1
 var myChart2
 var myChart3
 export default {
   name: 'workTable',
+  mixins: [mixin],
   components: {
     cardType
   },
@@ -470,9 +475,17 @@ export default {
 .workTable {
   .content1 {
     height: 100vh;
-    .el-col {
+    display: flex;
+    .content1Box1 {
       height: 100%;
+      width: 66.6%;
       padding: 10px 10px 0;
+    }
+    .content1Box2 {
+      height: 100%;
+      width: 33.3%;
+      padding: 10px 10px 0;
+      border-left: 10px solid #dad9d9;
     }
   }
   #dataEcharts {
@@ -481,16 +494,37 @@ export default {
   }
   #ranking {
     width: 100%;
-    height: calc(50% - 50px);
+    height: calc(100% - 50px);
   }
   #proportion {
     width: 100%;
-    height: calc(50% - 50px);
+    height: calc(100% - 50px);
   }
   .title {
     text-align: left;
     padding: 10px;
     font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .workTable {
+    .content1 {
+      height: 100vh;
+      display: flex;
+      flex-wrap: wrap;
+      .content1Box1 {
+        height: 100%;
+        width: 100%;
+        padding: 10px 10px 0;
+      }
+      .content1Box2 {
+        height: 100%;
+        width: 100%;
+        padding: 10px 10px 0;
+        border-left: 0;
+      }
+    }
   }
 }
 </style>

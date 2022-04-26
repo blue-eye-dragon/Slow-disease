@@ -17,7 +17,14 @@ const mixin = {
     search () {},
     handleDelete (id) {
       // console.log(id)
-    }
+    },
+    back () {
+      this.$router.go(-1)
+    },
+    //设置单元格背景
+    cellStyle({row, column, rowIndex, columnIndex}) {
+        return 'height:35px!important; border-color:black!important; color:#000000!important; padding:0px!important; height:40px!important'
+    },
   },
 }
 export default mixin

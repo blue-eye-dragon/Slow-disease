@@ -9,12 +9,16 @@
           label-width="85px"
         >
           <el-form-item label="科室">
-            <el-select v-model="formInline.department" placeholder="请选择">
+            <el-select
+              v-model="formInline.department"
+              placeholder="请选择"
+            >
               <el-option
                 v-for="item in departmentList"
                 :label="item.label"
                 :value="item.value"
-                :key="item.value">
+                :key="item.value"
+              >
               </el-option>
             </el-select>
           </el-form-item>
@@ -132,18 +136,29 @@
       stripe
       border
       max-height="600"
-      style="width: 100%">
-      <el-table-column prop="department"
-                       label="科室">
+      style="width: 100%"
+      :cell-style="cellStyle"
+      :header-cell-style="{background:'#cbe4ff',color:'black',borderColor:'black'}"
+    >
+      <el-table-column
+        prop="department"
+        label="科室"
+      >
       </el-table-column>
-      <el-table-column prop="rateOfReport"
-                       label="上报率">
+      <el-table-column
+        prop="rateOfReport"
+        label="上报率"
+      >
       </el-table-column>
-      <el-table-column prop="rateOfNoReport"
-                       label="漏报率">
+      <el-table-column
+        prop="rateOfNoReport"
+        label="漏报率"
+      >
       </el-table-column>
-      <el-table-column prop="allNumber"
-                       label="总人数">
+      <el-table-column
+        prop="allNumber"
+        label="总人数"
+      >
       </el-table-column>
     </el-table>
   </div>
@@ -154,7 +169,7 @@ import mixin from '@/mixins'
 export default {
   name: 'statisticalReports',
   mixins: [mixin],
-  data() {
+  data () {
     return {
       diseasesTypeList: [],
       departmentList: [],
@@ -343,14 +358,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .el-col {
-    padding: 0 0 0 20px;
+.el-col {
+  padding: 0 0 0 20px;
+}
+.searchForm {
+  margin-bottom: 20px;
+  border-bottom: 1px solid;
+  .el-input {
+    width: 200px;
   }
-  .searchForm {
-    margin-bottom: 20px;
-    border-bottom: 1px solid;
-    .el-input {
-      width: 200px;
-    }
-  }
+}
 </style>
