@@ -45,7 +45,7 @@
             </el-select>
           </el-col>
         </el-row>
-        <div style="padding:20px">
+        <div style="padding:20px" class="mediaClass">
           <el-form
             ref="form"
             :model="form"
@@ -280,7 +280,7 @@
         label="传染病页二"
         name="second"
       >
-        <div style="padding:20px">
+        <div style="padding:20px" class="mediaClass">
           <el-form
             ref="form2"
             :model="form2"
@@ -542,7 +542,7 @@
             </el-select>
           </el-col>
         </el-row>
-        <div style="padding:20px">
+        <div style="padding:20px" class="mediaClass">
           <el-form
             ref="form"
             :model="form3"
@@ -828,7 +828,7 @@
         label="性病页二"
         name="fourth"
       >
-        <div style="padding:20px">
+        <div style="padding:20px" class="mediaClass">
           <el-form
             ref="form4"
             :model="form4"
@@ -1200,6 +1200,7 @@ export default {
   data () {
     return {
       table: false,
+      media: false,
       dialogVisible: false,
       activeName: 'first',
       patientActive: 1,
@@ -1779,6 +1780,11 @@ export default {
       form4: {}
     }
   },
+  created () {
+    this.bus.$on('media', item => {
+      this.media = item
+    })
+  },
   mounted () {
     const params = this.$route.params
     if (params.flag && params.flag == 'add') {
@@ -1860,7 +1866,7 @@ export default {
   .formOne {
     border: 1px solid;
     padding-top: 20px;
-    height: calc(100vh - 270px);
+    height: calc(100vh - 310px);
     overflow: auto;
   }
   .formTwo {
@@ -1870,7 +1876,37 @@ export default {
   .patientBtn {
     position: absolute;
     right: 20px;
+    top: 40px;
+    height: 35px;
     z-index: 999;
   }
 }
+
+@media screen and (max-width:1200px) {
+  .cardInformation {
+    .mediaClass {
+      overflow-x: auto;
+    }
+    .formOne {
+      border: 1px solid;
+      padding-top: 20px;
+      width: 250%;
+      height: calc(100vh - 330px);
+      overflow: auto;
+    }
+    .formTwo {
+      width: 250%;
+      height: calc(100vh - 200px);
+      overflow: auto;
+    }
+    .alignGrounp {
+      display: flex;
+      flex-wrap: wrap;
+      height: 80px;
+      flex-direction: row;
+      align-content: stretch;
+      align-items: center;
+    }
+  }
+} 
 </style>

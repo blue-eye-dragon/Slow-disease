@@ -143,14 +143,14 @@
           prop="name0"
           label="登记号"
           width="120"
-          fixed
+          :fixed="!media"
         >
         </el-table-column>
         <el-table-column
           prop="name1"
           label="姓名"
           width="120"
-          fixed
+          :fixed="!media"
         >
         </el-table-column>
         <el-table-column
@@ -275,6 +275,7 @@ export default {
       table: false,
       patientActive: 1,
       userType: '1',
+      media: false,
       stateList: [
         {
           value: '治疗结束',
@@ -472,6 +473,11 @@ export default {
         }]
       },
     }
+  },
+  created () {
+    this.bus.$on('media', item => {
+      this.media = item
+    })
   },
   methods: {
     add () {

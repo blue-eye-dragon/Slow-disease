@@ -298,3 +298,8 @@ pre {
 .el-table--border::after, .el-table--group::after, .el-table::before{
   background-color: black;
 }
+
+.searchForm .el-button+.el-button {
+  margin-left: 0;
+  margin: 5px 0;
+}
