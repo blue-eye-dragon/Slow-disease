@@ -299,7 +299,11 @@ pre {
   background-color: black;
 }
 
-.searchForm .el-button+.el-button {
-  margin-left: 0;
-  margin: 5px 0;
+
+/* 移动端时的搜索按钮样式 */ 
+@media screen and (max-width:1200px) {
+  .searchForm .el-button+.el-button {
+    margin-left: 0;
+    margin: 5px 0;
+  }
 }

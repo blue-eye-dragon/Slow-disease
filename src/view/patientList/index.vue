@@ -176,7 +176,7 @@
           width="100"
         >
         </el-table-column>
-        <el-table-column label="操作" fixed="right">
+        <el-table-column label="操作" :fixed="media?'right':false">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -263,6 +263,7 @@ export default {
   data () {
     return {
       table: false,
+      media: false,
       patientActive: 1,
       userType: '1',
       patientTabList: [
@@ -432,6 +433,11 @@ export default {
         }]
       },
     }
+  },
+  created () {
+    this.bus.$on('media', item => {
+      this.media = item
+    })
   },
   methods: {
     add () {
