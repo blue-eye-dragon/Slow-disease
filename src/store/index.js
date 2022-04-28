@@ -60,8 +60,14 @@ export const store = new Vuex.Store({
     setasideList (state, asideList) {
       state.asideList = asideList
     },
-    settagList (state, tagList) {
-      state.tagList = tagList
+    addtagList (state, view) {
+      if (state.tagList.some(v => v.id === view.id)) return
+      state.tagList.push(view)
+    },
+    deltagList (state, view) {
+      state.tagList = state.tagList.filter(item => {
+        return item.id != view.id
+      })
     },
     setcurrenMenu (state, currenMenu) {
       state.currenMenu = currenMenu

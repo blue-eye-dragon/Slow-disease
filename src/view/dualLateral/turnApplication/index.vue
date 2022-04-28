@@ -69,7 +69,7 @@
                 <el-input v-model="formInline.organizationName" placeholder="请输入内容"></el-input>
               </el-form-item>
               <el-form-item label="申请时间：">
-                <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+                <el-date-picker v-model="formInline.upTime" type="date" placeholder="选择日期"></el-date-picker>
               </el-form-item>
           </el-row>
       </el-form>

@@ -21,9 +21,10 @@
 				</div>
         <Aside class="asideMenuList"></Aside>
       </el-aside>
-      <el-main class="mainBox">
+      <el-main>
+        <tagView></tagView>
         <keep-alive>
-          <router-view></router-view>
+          <router-view class="mainBox"></router-view>
         </keep-alive>
       </el-main>
       <el-drawer
@@ -47,11 +48,13 @@
 <script>
 import Aside from '@/view/layout/components/aside/index.vue'
 import Topmenu from '@/view/layout/components/topmenu/index.vue'
+import tagView from '@/view/layout/components/tagView/index.vue'
 export default {
   name: 'layout',
   components: {
     Aside,
-    Topmenu
+    Topmenu,
+    tagView
   },
   data () {
     return {

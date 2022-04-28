@@ -103,9 +103,12 @@ export default {
       store.commit('setcurrenMenuTitle', item.title)
       if (item.path) {
         this.$router.push(item.path)
+        store.commit('setcurrenMenu', item.id)
+        store.commit('addtagList',item)
       } else {
         this.$router.push(item.children[0].path)
         store.commit('setcurrenMenu', item.children[0].id)
+        store.commit('addtagList',item.children[0])
       }
     }
   }

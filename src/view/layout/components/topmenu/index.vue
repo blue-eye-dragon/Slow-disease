@@ -41,7 +41,7 @@
   </div>
 </template>
 <script>
-// import { store } from '@/store'
+import { store } from '@/store'
 import { mapGetters } from 'vuex'
 export default {
   name: 'topmenu',
@@ -68,6 +68,8 @@ export default {
   methods: {
     selectAsideList (item) {
       this.$router.push(item.path)
+      store.commit('setcurrenMenu', item.id)
+      store.commit('addtagList',item)
     },
   },
 }
