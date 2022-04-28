@@ -14,7 +14,7 @@
       </div>
     </el-header>
     <el-container>
-      <el-aside :width="media?(isCollapse?'0px':'200px'):(isCollapse?'80px':'200px')" class="asideMenu">
+      <el-aside v-if="!media" :width="isCollapse?'80px':'200px'" class="asideMenu">
         <div class="adminInfo">
           <i class="el-icon-user-solid"></i>
 					<p class="adminName">{{userName}}</p>
@@ -26,6 +26,21 @@
           <router-view></router-view>
         </keep-alive>
       </el-main>
+      <el-drawer
+         v-if="media"
+        :visible.sync="drawer"
+        :show-close="false"
+        :with-header="false"
+        size="200"
+        direction="ltr">
+          <el-aside :width="'200px'" class="asideMenu">
+            <div class="adminInfo">
+              <i class="el-icon-user-solid"></i>
+              <p class="adminName">{{userName}}</p>
+            </div>
+            <Aside class="asideMenuList"></Aside>
+          </el-aside>
+      </el-drawer>
     </el-container>
   </el-container>
 </template>
@@ -41,6 +56,8 @@ export default {
   data () {
     return {
       isCollapse: false,
+      media: false,
+      drawer: false,
       userName: '',
       upUserName: 'xxx'
     }
@@ -48,24 +65,26 @@ export default {
   mounted () {
     const screenWidth = document.body.clientWidth
     if (screenWidth < 1200) {
-      this.isCollapse = true
+      this.isCollapse = false
       this.media = true
     } else {
       this.isCollapse = false
       this.media = false
     }
     this.bus.$emit('collapse', this.isCollapse)
+    this.bus.$emit('media', this.media)
     window.onresize = () => {
       return (() => {
         const screenWidth = document.body.clientWidth
         if (screenWidth < 1200) {
-          this.isCollapse = true
+          this.isCollapse = false
           this.media = true
         } else {
           this.isCollapse = false
           this.media = false
         }
         this.bus.$emit('collapse', this.isCollapse)
+        this.bus.$emit('media', this.media)
       })()
     }
   },
@@ -95,10 +114,14 @@ export default {
         this.$router.push('/patientList')            
       },
       changeShadow () {
-        this.isCollapse = !this.isCollapse
-        this.bus.$emit('collapse', this.isCollapse)
+        this.drawer = !this.drawer
+        if (!this.media) {
+          this.isCollapse = !this.isCollapse
+          this.bus.$emit('collapse', this.isCollapse)
+        }
       },
-      handleCommand () {}
+      handleCommand () {},
+      handleClose () {}
   }
 }
 </script>
@@ -216,6 +239,11 @@ export default {
         z-index: 999;
         padding: 0;
       }
+    }
+    .el-aside {
+      color: #333;
+      text-align: center;
+      height: 100vh;
     }
   }
 } 

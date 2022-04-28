@@ -176,8 +176,8 @@ export default {
     .loginform {
       position: absolute;
       top: 30vh;
-      right: 16vw;
-      width: 30vw;
+      right: 10vw;
+      width: 80vw;
       background-color: #fff;
       padding: 20px;
       border-radius: 10px;

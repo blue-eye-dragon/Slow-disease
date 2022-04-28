@@ -31,7 +31,7 @@ export default {
   },
   data () {
     return {
-      isCollapse: true,
+      isCollapse: false,
       // asideList: store.getters['asideList']
       // menuList: store.getters['asideList'],
       asideList: [
@@ -96,12 +96,11 @@ export default {
     async getAsideList () {
       const res = await this.$post('/index/getMenu')
       this.asideList = res.data.data.menu
-      console.log(this.asideList);
-      console.log(res);
     },  
     selectAsideList (item) {
       // this.$router.push(item.path)
       store.commit('setmenuList', item.children)
+      store.commit('setcurrenMenuTitle', item.title)
       if (item.path) {
         this.$router.push(item.path)
       } else {

@@ -462,7 +462,6 @@ export default {
   height: 120px;
   display: flex;
   flex-wrap: wrap;
-  border-bottom: 10px solid #dad9d9;
   .numBox {
     width: 30%;
     font-size: 15px;
@@ -490,5 +489,42 @@ export default {
 #diseaseStatistics {
   width: 100%;
   height: 300px;
+}
+@media screen and (max-width: 1200px) {
+  .bigscreen {
+    .bigscreenOne {
+      width: 100%;
+      padding-left: 20px;
+    }
+    .bigscreenTwo {
+      width: 100%;
+      padding-left: 20px;
+      border-left: 0;
+      border-right: 0;
+      border-bottom: 10px solid #dad9d9;
+    }
+    .bigscreenThree {
+      width: 100%;
+      padding-left: 20px;
+      border-bottom: 10px solid #dad9d9;
+    }
+    .bigscreenFour {
+      width: 100%;
+      padding-left: 20px;
+      border-bottom: 10px solid #dad9d9;
+    }
+    .bigscreenFive {
+      width: 100%;
+      padding: 0 20px;
+      border-left: 0;
+      border-right: 0;
+      border-bottom: 10px solid #dad9d9;
+    }
+    .bigscreensix {
+      width: 100%;
+      padding-left: 20px;
+    }
+  }
+  
 }
 </style>

@@ -12,6 +12,7 @@ export const store = new Vuex.Store({
     user: '',
     token: '',
     currenMenu: '',
+    currenMenuTitle: '',
     menuList: [],
     asideList: [],
     tagList: []
@@ -34,6 +35,9 @@ export const store = new Vuex.Store({
     },
     currenMenu (state) {
       return state.currenMenu
+    },
+    currenMenuTitle (state) {
+      return state.currenMenuTitle
     }
   },
   mutations: {
@@ -61,6 +65,9 @@ export const store = new Vuex.Store({
     },
     setcurrenMenu (state, currenMenu) {
       state.currenMenu = currenMenu
+    },
+    setcurrenMenuTitle (state, currenMenuTitle) {
+      state.currenMenuTitle = currenMenuTitle
     }
   },
   // actions: {
