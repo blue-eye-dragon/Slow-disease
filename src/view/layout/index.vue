@@ -215,6 +215,8 @@ export default {
 
   }
   .mainBox {
+    overflow-x: auto;
+    min-height: calc(100vh - 95px);
     padding: 10px;
     background-color: #fff;
     border: 10px solid #dad9d9;
