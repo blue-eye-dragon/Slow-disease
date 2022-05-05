@@ -510,16 +510,16 @@ export default {
 @media screen and (max-width: 1200px) {
   .workTable {
     .content1 {
-      height: 100vh;
+      height: auto;
       display: flex;
       flex-wrap: wrap;
       .content1Box1 {
-        height: 100%;
+        height: 100vh;
         width: 100%;
         padding: 10px 10px 0;
       }
       .content1Box2 {
-        height: 100%;
+        height: 100vh;
         width: 100%;
         padding: 10px 10px 0;
         border-left: 0;

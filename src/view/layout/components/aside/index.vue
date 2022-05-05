@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <el-menu
-      :default-active="activeIndex"
+      :default-active="currenMenu"
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose"
@@ -24,6 +24,7 @@
 <script>
 import subMenu from '@/components/subMenu'
 import { store } from '@/store'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Aside',
   components: {
@@ -74,8 +75,10 @@ export default {
         },
         { id: '15', title: '数据展示', path: '/bigscreen', icon: 's-data' },
       ],
-      activeIndex: '1',
     }
+  },
+  computed: {
+    ...mapGetters(['currenMenu']),
   },
   created () {
     this.bus.$on('collapse', item => {
