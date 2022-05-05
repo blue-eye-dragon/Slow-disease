@@ -21,7 +21,7 @@
         </el-dropdown>
       </div>
     </el-header>
-    <el-container>
+    <el-container class="contentBox">
       <el-aside
         v-if="!media"
         :width="isCollapse?'80px':'200px'"
@@ -34,7 +34,7 @@
         <Aside class="asideMenuList"></Aside>
       </el-aside>
       <el-main>
-        <tagView></tagView>
+        <tagView class="tagTop"></tagView>
         <keep-alive>
           <router-view class="mainBox"></router-view>
         </keep-alive>
@@ -162,6 +162,7 @@ export default {
 
 .el-main {
   background-color: #e9eef3;
+  position: relative;
   color: #333;
   text-align: center;
   height: calc(100vh - 60px);
@@ -230,17 +231,27 @@ export default {
       height: 0px;
     }
   }
-  .mainBox {
-    overflow-x: auto;
-    min-height: calc(100vh - 95px);
-    padding: 10px;
-    background-color: #fff;
-    border: 10px solid #dad9d9;
-  }
-  .el-button--primary {
-    color: black;
-    background-color: #ebebeb;
-    border-color: #ebebeb;
+  .contentBox {
+    .tagTop {
+      z-index: 999;
+      position: fixed;
+      top: 60px;
+      border-bottom: 1px solid;
+      box-shadow: 2px 2px 3px 0 rgb(148 148 148);
+    }
+    .mainBox {
+      overflow-x: auto;
+      min-height: calc(100vh - 95px);
+      padding: 10px;
+      margin-top: 35px;
+      background-color: #fff;
+      border: 10px solid #dad9d9;
+    }
+    .el-button--primary {
+      color: black;
+      background-color: #ebebeb;
+      border-color: #ebebeb;
+    }
   }
 }
 @media screen and (max-width: 1200px) {
