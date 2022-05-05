@@ -2,11 +2,19 @@
   <el-container class="layout">
     <el-header class="headerTop">
       <div class="title">慢病管理系统</div>
-      <el-button type="primary" :icon="`el-icon-${isCollapse?'s-unfold':'s-fold'}`" class="isShow" @click="changeShadow"></el-button>
+      <el-button
+        type="primary"
+        :icon="`el-icon-${isCollapse?'s-unfold':'s-fold'}`"
+        class="isShow"
+        @click="changeShadow"
+      ></el-button>
       <Topmenu></Topmenu>
       <div class="setting">
         <el-dropdown @command="handleCommand">
-          <i class="el-icon-s-tools" style="color:#fff"></i>
+          <i
+            class="el-icon-s-tools"
+            style="color:#fff"
+          ></i>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="a">退出</el-dropdown-item>
           </el-dropdown-menu>
@@ -14,11 +22,15 @@
       </div>
     </el-header>
     <el-container>
-      <el-aside v-if="!media" :width="isCollapse?'80px':'200px'" class="asideMenu">
+      <el-aside
+        v-if="!media"
+        :width="isCollapse?'80px':'200px'"
+        class="asideMenu"
+      >
         <div class="adminInfo">
           <i class="el-icon-user-solid"></i>
-					<p class="adminName">{{userName}}</p>
-				</div>
+          <p class="adminName">{{userName}}</p>
+        </div>
         <Aside class="asideMenuList"></Aside>
       </el-aside>
       <el-main>
@@ -28,19 +40,23 @@
         </keep-alive>
       </el-main>
       <el-drawer
-         v-if="media"
+        v-if="media"
         :visible.sync="drawer"
         :show-close="false"
         :with-header="false"
         size="200"
-        direction="ltr">
-          <el-aside :width="'200px'" class="asideMenu">
-            <div class="adminInfo">
-              <i class="el-icon-user-solid"></i>
-              <p class="adminName">{{userName}}</p>
-            </div>
-            <Aside class="asideMenuList"></Aside>
-          </el-aside>
+        direction="ltr"
+      >
+        <el-aside
+          :width="'200px'"
+          class="asideMenu"
+        >
+          <div class="adminInfo">
+            <i class="el-icon-user-solid"></i>
+            <p class="adminName">{{userName}}</p>
+          </div>
+          <Aside class="asideMenuList"></Aside>
+        </el-aside>
       </el-drawer>
     </el-container>
   </el-container>
@@ -92,44 +108,45 @@ export default {
     }
   },
   methods: {
-      open2() {
-        const _this = this;
-        this.$notify({
-          title: '审核提醒',
-          dangerouslyUseHTMLString: true,
-          message: `
+    open2 () {
+      const _this = this;
+      this.$notify({
+        title: '审核提醒',
+        dangerouslyUseHTMLString: true,
+        message: `
             <div>
               <div>
                 <span>${this.upUserName}<span>提交了新的待审批工单
               </div>
             <div>
           `,
-          position: 'bottom-right',
-          offset: 10,
-          duration: 0,
-          onClick () {
-            console.log(333123);
-            _this.pushSub()
-          }
-        });
-      },
-      pushSub () {cd
-        this.$router.push('/patientList')            
-      },
-      changeShadow () {
-        this.drawer = !this.drawer
-        if (!this.media) {
-          this.isCollapse = !this.isCollapse
-          this.bus.$emit('collapse', this.isCollapse)
+        position: 'bottom-right',
+        offset: 10,
+        duration: 0,
+        onClick () {
+          console.log(333123);
+          _this.pushSub()
         }
-      },
-      handleCommand () {},
-      handleClose () {}
+      });
+    },
+    pushSub () {
+      cd
+      this.$router.push('/patientList')
+    },
+    changeShadow () {
+      this.drawer = !this.drawer
+      if (!this.media) {
+        this.isCollapse = !this.isCollapse
+        this.bus.$emit('collapse', this.isCollapse)
+      }
+    },
+    handleCommand () { },
+    handleClose () { }
   }
 }
 </script>
 <style lang="less" scoped>
-.el-header{
+.el-header {
   color: #333;
   text-align: center;
   height: 60px;
@@ -212,9 +229,9 @@ export default {
       width: 0px;
       height: 0px;
     }
-
   }
   .mainBox {
+    overflow-x: auto;
     min-height: calc(100vh - 95px);
     padding: 10px;
     background-color: #fff;
@@ -226,7 +243,7 @@ export default {
     border-color: #ebebeb;
   }
 }
-@media screen and (max-width:1200px) {
+@media screen and (max-width: 1200px) {
   .layout {
     .headerTop {
       display: flex;
@@ -250,5 +267,5 @@ export default {
       height: 100vh;
     }
   }
-} 
+}
 </style>

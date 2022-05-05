@@ -1,9 +1,9 @@
 <template>
   <div class="tagView" v-if="tagList.length">
     <div class="tagListBox">
-      <div v-for="item in tagList" :key="item.id" :class="[{active: item.id === currenMenu},'tagListItem']" @click="selectAsideList(item)">
+      <div v-for="(item,index) in tagList" :key="item.id" :class="[{active: item.id === currenMenu},'tagListItem']" @click="selectAsideList(item)">
         {{item.title}}
-        <span class="el-icon-close delIcon" @click.prevent.stop="closeSelectedTag(item)" />
+        <span  v-if="tagList.length > 1" class="el-icon-close delIcon" @click.prevent.stop="closeSelectedTag(item,index)" />
       </div>
     </div>
   </div>
@@ -36,7 +36,12 @@ export default {
         store.commit('setcurrenMenu', item.children[0].id)
       }
     },
-    closeSelectedTag (item) {
+    closeSelectedTag (item, index) {
+      if (index == this.tagList.length - 1) (
+        this.$router.push(this.tagList[index - 1].path),
+        store.commit('setcurrenMenu', this.tagList[index - 1].id)
+      )
+      console.log(index,this.tagList.length);
       store.commit('deltagList', item)
     }
   },
@@ -58,7 +63,7 @@ export default {
       font-size: 12px;
       line-height: 23px;
       white-space: nowrap;
-      padding: 0 5px;
+      padding: 0 10px;
       margin: 0 5px;
       cursor: pointer;
       background-color: #fff;
