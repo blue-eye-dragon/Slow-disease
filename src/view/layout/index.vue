@@ -233,7 +233,7 @@ export default {
   }
   .contentBox {
     .tagTop {
-      z-index: 999;
+      z-index: 10;
       position: fixed;
       top: 60px;
       border-bottom: 1px solid;

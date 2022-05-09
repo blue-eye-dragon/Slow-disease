@@ -3,26 +3,26 @@
   <div class="typeCardList">
     <div
       v-for="(item,index) in cardList"
-      :key="item.title"
+      :key="item.title1"
       :class="`typeCard color${index}`"
     >
       <p class="titleBox">
         <span></span>
-        {{item.title}}
+        {{item.title1}}
       </p>
       <div class="contentBox">
         <div>
           <p>待审核：<span
-              :class="item.title == '死因监测'? null : 'hover'"
-              @click="toAudit(item.title)"
+              :class="item.title1 == '死因监测'? null : 'hover'"
+              @click="toAudit(item)"
             >{{item.toAudit}}</span>人</p>
           <p>已审核：<span
-              :class="item.title == '死因监测'? null : 'hover'"
-              @click="audited(item.title)"
+              :class="item.title1 == '死因监测'? null : 'hover'"
+              @click="audited(item)"
             >{{item.audited}}</span>人</p>
           <p>超时提醒：<span
-              :class="item.title == '死因监测'? null : 'hover'"
-              @click="willExpire(item.title)"
+              :class="item.title1 == '死因监测'? null : 'hover'"
+              @click="willExpire(item)"
             >{{item.willExpire}}</span>人</p>
         </div>
         <!-- <div>
@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { store } from '@/store'
 export default {
   name: 'cardType',
   props: {
@@ -48,19 +49,28 @@ export default {
     }
   },
   methods: {
-    toAudit (e) {
-      if (e !== '死因监测') {
-        this.$router.push('/patientList')
+    toAudit (item) {
+      if (item.title1 !== '死因监测') {
+        store.commit('setcurrenMenu', item.id)
+        store.commit('addtagList',item)
+        store.commit('setcurrenMenuTitle', item.title2)
+        this.$router.push(item.path)
       }
     },
-    audited (e) {
-      if (e !== '死因监测') {
-        this.$router.push('/patientList')
+    audited (item) {
+      if (item.title1 !== '死因监测') {
+        store.commit('setcurrenMenu', item.id)
+        store.commit('addtagList',item)
+        store.commit('setcurrenMenuTitle', item.title2)
+        this.$router.push(item.path)
       }
     },
-    willExpire (e) {
-      if (e !== '死因监测') {
-        this.$router.push('/patientList')
+    willExpire (item) {
+      if (item.title1 !== '死因监测') {
+        store.commit('setcurrenMenu', item.id)
+        store.commit('addtagList',item)
+        store.commit('setcurrenMenuTitle', item.title2)
+        this.$router.push(item.path)
       }
     },
   },

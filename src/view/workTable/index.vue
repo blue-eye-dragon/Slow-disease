@@ -96,37 +96,55 @@ export default {
       isCollapse: false,
       cardList: [
         {
-          title: '传染病监测',
+          id: '2',
+          title1: '传染病监测',
+          title: '疾病报告管理',
+          path: '/patientList',
           toAudit: '12',
           audited: '15',
           willExpire: '9'
         },
         {
-          title: '慢病监测',
+          id: '2',
+          title1: '慢病监测',
+          title: '疾病报告管理',
+          path: '/patientList',
           toAudit: '21',
           audited: '45',
           willExpire: '12'
         },
         {
-          title: '精神障碍监测',
+          id: '2',
+          title1: '精神障碍监测',
+          title: '疾病报告管理',
+          path: '/patientList',
           toAudit: '14',
           audited: '31',
           willExpire: '11'
         },
         {
-          title: '死因监测',
+          id: '2',
+          title1: '死因监测',
+          title: '疾病报告管理',
+          path: '/patientList',
           toAudit: '16',
           audited: '42',
           willExpire: '21'
         },
         {
-          title: '食源性疾病监测',
+          id: '2',
+          title1: '食源性疾病监测',
+          title: '疾病报告管理',
+          path: '/patientList',
           toAudit: '21',
           audited: '24',
           willExpire: '15'
         },
         {
-          title: '其它监测',
+          id: '2',
+          title1: '其它监测',
+          title: '疾病报告管理',
+          path: '/patientList',
           toAudit: '16',
           audited: '25',
           willExpire: '13'
